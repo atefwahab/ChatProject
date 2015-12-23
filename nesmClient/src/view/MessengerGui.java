@@ -7,6 +7,7 @@ package view;
 
 import controller.ClientController;
 import java.awt.CardLayout;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +18,7 @@ public class MessengerGui extends javax.swing.JFrame {
     
     ClientController clientController;
     CardLayout cardLayout;
+    int result;
     
     
     
@@ -267,7 +269,11 @@ public class MessengerGui extends javax.swing.JFrame {
 
         email.setText("username@gmail.com");
 
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eman\\Downloads\\addfriend.png")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -514,6 +520,21 @@ public class MessengerGui extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+  /*  JDialog.setDefaultLookAndFeelDecorated(true);
+    result = JOptionPane.showConfirmDialog(FriendListPanel,"Do you want to add this person ?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    if (result == JOptionPane.NO_OPTION) {
+      System.out.println("No button clicked");
+    } else if (result == JOptionPane.YES_OPTION) {
+      System.out.println("Yes button clicked");
+    } else if (result == JOptionPane.CLOSED_OPTION) {
+      System.out.println("JOptionPane closed");
+    }
+    */
+        System.out.println("The button is presses");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
