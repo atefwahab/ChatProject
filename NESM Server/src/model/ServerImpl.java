@@ -20,7 +20,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     public boolean signIn(String email, String Password) {
         
         System.out.println("sign in has pressed");
-        return true;
+        return serverController.signIn(email, Password);
     }
 
     @Override
@@ -34,6 +34,14 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     public boolean checkEmail(String email) throws RemoteException {
        
     return serverController.checkEmail(email);
+    }
+
+    @Override
+    //Search Email
+    public String searchEmail(String email) throws RemoteException {
+        
+        return "";
+        
     }
     
 }

@@ -83,10 +83,42 @@ public class DbConnector
 	 */
 	
 	public boolean signIn(String email, String password) {
-		// TODO implement me
-		return false;	
-	}
+            
+             query="SELECT `Password` FROM `users` WHERE `E-mail`= '"+email+"'";
+             
+            try {
+            
+                  resultSet= state.executeQuery(query);
+                  if(resultSet.next()){
+                  
+                      
+            
+                        if(resultSet.getString(1).equals(password))
+                       
+                        {
+                           return true;
+                
+                           
+                        }
+                   
+                       else{
+                         return false;
+            }
+                  }//end if
+                   else{
+                         return false;
+            }
+        }//endt ry
+           
+        
+            // TODO implement me
+       	
+         catch (SQLException ex) {
+           ex.printStackTrace();
+            return false;
+        }
 	
+        }//end sign in
 	/**
 	 * take 3 parameters email,password,and username
 	 */
@@ -290,7 +322,32 @@ public class DbConnector
             return false;  
         }
     }
+ 
     
-	
+    public String searchFriend(String email)
+    {
+        
+        
+        
+            query="SELECT `user_name` FROM `users` WHERE `E-mail`= '"+email+"'";
+            
+            
+             try {
+            resultSet= state.executeQuery(query);
+            if(resultSet.next())
+            {
+                return(resultSet.getString(1));
+                        
+            } //end if 
+       
+             else{return null;}}
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+               
+       
+       
+    }
 }
 

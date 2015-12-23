@@ -39,8 +39,8 @@ public class ServerController {
     //controller SignIn
     public boolean signIn(String email, String Password) {
         
+        return dbConnector.signIn(email, Password);
         
-        return true;
     }
 
     //Controller Signup
@@ -66,6 +66,13 @@ public class ServerController {
         
             return false;
         }
+    }
+    
+    //search email
+    String searchEmail(String email){
+    
+           return dbConnector.searchFriend(email);
+    
     }
     
     
