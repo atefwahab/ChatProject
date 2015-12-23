@@ -523,9 +523,13 @@ public class MessengerGui extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
+<<<<<<< HEAD
     JDialog.setDefaultLookAndFeelDecorated(true);
    
     
+=======
+  /*  JDialog.setDefaultLookAndFeelDecorated(true);
+>>>>>>> origin/master
     result = JOptionPane.showConfirmDialog(FriendListPanel,"Do you want to add this person ?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     if (result == JOptionPane.NO_OPTION) {
       System.out.println("No button clicked");
@@ -534,8 +538,13 @@ public class MessengerGui extends javax.swing.JFrame {
     } else if (result == JOptionPane.CLOSED_OPTION) {
       System.out.println("JOptionPane closed");
     }
+<<<<<<< HEAD
     
     //    System.out.println("The button is presses");
+=======
+    */
+        System.out.println("The button is presses");
+>>>>>>> origin/master
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
