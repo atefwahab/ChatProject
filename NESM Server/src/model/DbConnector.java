@@ -96,26 +96,35 @@ public class DbConnector
                         if(resultSet.getString(1).equals(password))
                        
                         {
+                            
+                            /*user=new User();
+                            user.setEmail(email);
+                            user.setPassword(password);*/
+                            System.out.println("true sign in");
                            return true;
                 
                            
                         }
                    
                        else{
+                            System.out.println("false sign in");
                          return false;
             }
                   }//end if
                    else{
+                         System.out.println("false sign in");
                          return false;
             }
-        }//endt ry
+        }//end try
            
         
             // TODO implement me
        	
          catch (SQLException ex) {
            ex.printStackTrace();
-            return false;
+           System.out.println("false sign in"); 
+           return false;
+             
         }
 	
         }//end sign in
@@ -249,6 +258,7 @@ public class DbConnector
 	
 	public Vector<Integer> getFriends() {
 		// TODO implement me
+                query="";
 		return null;	
 	}
 	
@@ -305,21 +315,21 @@ public class DbConnector
         
     // Check email existance
     public boolean checkEmail(String email){
-        
+        boolean flag=false;
         try {
-           
-            query="SELECT `E-mail` FROM `users` WHERE `E-mail`= "+email;
-            resultSet= state.executeQuery(query); 
-            if(resultSet.next()){
-                return true;
+            query="SELECT `E-mail` FROM `users` WHERE `E-mail`='"+email+"'";
+            resultSet=state.executeQuery(query);
+            if (resultSet.next()) {
+                
+                System.out.println("true");
+                flag=true;
                 
             }
-            else{
-                 return false;
-            }
-          
         } catch (SQLException ex) {
-            return false;  
+            ex.printStackTrace();
+        }
+        finally{
+         return flag;
         }
     }
  
