@@ -40,7 +40,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     //Search Email
     public String searchEmail(String email) throws RemoteException {
         
-        return "";
+       return serverController.searchEmail(email);
         
     }
     

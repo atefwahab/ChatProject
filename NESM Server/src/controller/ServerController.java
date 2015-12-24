@@ -69,7 +69,7 @@ public class ServerController {
     }
     
     //search email
-    String searchEmail(String email){
+    public String searchEmail(String email){
     
            return dbConnector.searchFriend(email);
     
