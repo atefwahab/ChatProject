@@ -4,10 +4,9 @@ package controller;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.DbConnector;
 import model.ServerImpl;
+import model.User;
 
 /**
  *
@@ -17,6 +16,8 @@ public class ServerController {
     
     ServerImpl serverImpl;
     DbConnector dbConnector;
+    
+    User user;
     
     // >-- Constructor -->
     public ServerController() {
@@ -28,6 +29,7 @@ public class ServerController {
             serverImpl =new ServerImpl(this);
             Registry reg =LocateRegistry.createRegistry(5000);
             reg.rebind("Server Object",serverImpl);
+            
 
         } catch (RemoteException ex) {
             ex.printStackTrace();
@@ -37,9 +39,11 @@ public class ServerController {
 
 
     //controller SignIn
-    public boolean signIn(String email, String Password) {
+    public User signIn(String email, String Password) {
         
-        return dbConnector.signIn(email, Password);
+        
+       return dbConnector.signIn(email, Password);
+        
         
     }
 
@@ -73,6 +77,14 @@ public class ServerController {
     
            return dbConnector.searchFriend(email);
     
+    }
+    
+    
+    public User getUser(){
+    
+        User obj = new User();
+        obj.setUsername("Ayad");
+        return obj;
     }
     
     

@@ -7,27 +7,49 @@ package view;
 
 import controller.ClientController;
 import java.awt.CardLayout;
-import javax.swing.JDialog;
+import java.util.Vector;
+import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import model.User;
 
 /**
  *
  * @author Eman
  */
 public class MessengerGui extends javax.swing.JFrame {
-    
+
     ClientController clientController;
     CardLayout cardLayout;
     int result;
+    String userNameString;
+
+    //Check email flag
+    boolean checkEmailFlag = false;
+    //Check username
+    boolean checkUserNameflag = false;
+    //check password 
+    boolean checkPasswordFlag = false;
+
+    //Check confirmtion
+    boolean checkPasswordConfirmFlag = false;
+    //my data of the user
+    User myUser;
     
+    //My friends 
+    Vector<User>friends;
     
-    
+
     // >--constuctor-->
     public MessengerGui(ClientController c) {
         initComponents();
-        clientController=c;
-        cardLayout=(CardLayout)mainPanel.getLayout();
+        clientController = c;
+        cardLayout = (CardLayout) mainPanel.getLayout();
         this.main();
+        this.setTitle("NESM Messenger");
+
     }
 
     /**
@@ -39,21 +61,14 @@ public class MessengerGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Chat = new javax.swing.JFrame();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jSeparator4 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        chatPanel = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
         SignPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        userNameTextField = new javax.swing.JTextField();
+        signInEmailTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        passwordTextField = new javax.swing.JPasswordField();
+        signInPasswordTextField = new javax.swing.JPasswordField();
         jPanel6 = new javax.swing.JPanel();
         errorLabel = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -63,79 +78,30 @@ public class MessengerGui extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        username = new javax.swing.JLabel();
-        email = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        userNameLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        searchButton = new javax.swing.JButton();
+        searchTextField = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        friendsList = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         jSeparator3 = new javax.swing.JSeparator();
         SignUpPanel = new javax.swing.JPanel();
         UserNameLabel = new javax.swing.JLabel();
-        UserNameTextField = new javax.swing.JTextField();
+        signupUserNameTextField = new javax.swing.JTextField();
         EmailLabel = new javax.swing.JLabel();
-        EmailTextField = new javax.swing.JTextField();
+        signUpEmailTextField = new javax.swing.JTextField();
         PasswordLabel = new javax.swing.JLabel();
-        PasswordTextField = new javax.swing.JTextField();
         ConfirmPasswordLabel = new javax.swing.JLabel();
-        confirmpasswordTextField = new javax.swing.JTextField();
-        Register = new javax.swing.JButton();
+        registerButton = new javax.swing.JButton();
+        emailimage = new javax.swing.JLabel();
+        imagepass = new javax.swing.JLabel();
+        errorRegister = new javax.swing.JLabel();
+        signUpPasswordField = new javax.swing.JPasswordField();
+        ConfirmPasswordField = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jButton3.setText("Send");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ChatLayout = new javax.swing.GroupLayout(Chat.getContentPane());
-        Chat.getContentPane().setLayout(ChatLayout);
-        ChatLayout.setHorizontalGroup(
-            ChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChatLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-                    .addComponent(jSeparator4)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ChatLayout.createSequentialGroup()
-                        .addComponent(jTextField2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addContainerGap())
-        );
-        ChatLayout.setVerticalGroup(
-            ChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChatLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout chatPanelLayout = new javax.swing.GroupLayout(chatPanel);
-        chatPanel.setLayout(chatPanelLayout);
-        chatPanelLayout.setHorizontalGroup(
-            chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        chatPanelLayout.setVerticalGroup(
-            chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,7 +129,7 @@ public class MessengerGui extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("User Name : ");
+        jLabel1.setText("E-mail : ");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password :");
@@ -175,10 +141,10 @@ public class MessengerGui extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(signInPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(userNameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(signInEmailTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
@@ -187,11 +153,11 @@ public class MessengerGui extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(signInEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(signInPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -265,13 +231,22 @@ public class MessengerGui extends javax.swing.JFrame {
 
         jButton1.setText("Log Out");
 
-        username.setText("UserName");
+        userNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userNameLabel.setText("hello");
 
-        email.setText("username@gmail.com");
+        emailLabel.setForeground(new java.awt.Color(255, 255, 255));
 
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/addfriend.png"))); // NOI18N
+        searchButton.setEnabled(false);
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        searchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTextFieldKeyReleased(evt);
             }
         });
 
@@ -288,11 +263,11 @@ public class MessengerGui extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -306,13 +281,13 @@ public class MessengerGui extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(55, 55, 55)
-                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -321,14 +296,14 @@ public class MessengerGui extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 0, 102));
 
-        jList1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        friendsList.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        friendsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane1.setViewportView(jList1);
+        friendsList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.setViewportView(friendsList);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -375,20 +350,41 @@ public class MessengerGui extends javax.swing.JFrame {
         SignUpPanel.setBackground(new java.awt.Color(102, 0, 102));
 
         UserNameLabel.setForeground(new java.awt.Color(255, 255, 255));
-        UserNameLabel.setText("  UserName :");
+        UserNameLabel.setText("  User Name :");
 
-        UserNameTextField.addActionListener(new java.awt.event.ActionListener() {
+        signupUserNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserNameTextFieldActionPerformed(evt);
+                signupUserNameTextFieldActionPerformed(evt);
+            }
+        });
+        signupUserNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                signupUserNameTextFieldKeyReleased(evt);
             }
         });
 
         EmailLabel.setForeground(new java.awt.Color(255, 255, 255));
         EmailLabel.setText(" E-mail :");
 
-        EmailTextField.addActionListener(new java.awt.event.ActionListener() {
+        signUpEmailTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailTextFieldActionPerformed(evt);
+                signUpEmailTextFieldActionPerformed(evt);
+            }
+        });
+        signUpEmailTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                signUpEmailTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                signUpEmailTextFieldFocusLost(evt);
+            }
+        });
+        signUpEmailTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                signUpEmailTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                signUpEmailTextFieldKeyTyped(evt);
             }
         });
 
@@ -398,16 +394,46 @@ public class MessengerGui extends javax.swing.JFrame {
         ConfirmPasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
         ConfirmPasswordLabel.setText(" Confirm Password :");
 
-        confirmpasswordTextField.addActionListener(new java.awt.event.ActionListener() {
+        registerButton.setText("Register");
+        registerButton.setEnabled(false);
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmpasswordTextFieldActionPerformed(evt);
+                registerButtonActionPerformed(evt);
             }
         });
 
-        Register.setText("Register");
-        Register.addActionListener(new java.awt.event.ActionListener() {
+        errorRegister.setForeground(new java.awt.Color(255, 255, 255));
+
+        signUpPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterActionPerformed(evt);
+                signUpPasswordFieldActionPerformed(evt);
+            }
+        });
+        signUpPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                signUpPasswordFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                signUpPasswordFieldKeyTyped(evt);
+            }
+        });
+
+        ConfirmPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfirmPasswordFieldActionPerformed(evt);
+            }
+        });
+        ConfirmPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ConfirmPasswordFieldFocusLost(evt);
+            }
+        });
+        ConfirmPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ConfirmPasswordFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ConfirmPasswordFieldKeyTyped(evt);
             }
         });
 
@@ -420,18 +446,23 @@ public class MessengerGui extends javax.swing.JFrame {
                     .addGroup(SignUpPanelLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(signUpPasswordField)
+                            .addComponent(errorRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(UserNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(UserNameTextField)
+                            .addComponent(signupUserNameTextField)
                             .addComponent(EmailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EmailTextField)
+                            .addComponent(signUpEmailTextField)
                             .addComponent(PasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(PasswordTextField)
                             .addComponent(ConfirmPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                            .addComponent(confirmpasswordTextField)))
+                            .addComponent(ConfirmPasswordField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(emailimage, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                            .addComponent(imagepass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(SignUpPanelLayout.createSequentialGroup()
                         .addGap(144, 144, 144)
-                        .addComponent(Register, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                        .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         SignUpPanelLayout.setVerticalGroup(
             SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,21 +470,27 @@ public class MessengerGui extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addComponent(UserNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(UserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(signupUserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(EmailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(signUpEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailimage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(signUpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ConfirmPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(confirmpasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
-                .addComponent(Register, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(imagepass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(errorRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(202, Short.MAX_VALUE))
         );
 
@@ -476,77 +513,262 @@ public class MessengerGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInActionPerformed
-       if(!userNameTextField.getText().equals(null)&&!passwordTextField.getPassword().equals(null))
-       {
-          if( clientController.signIn(userNameTextField.getText(),new String(passwordTextField.getPassword())))
-          {
-              cardLayout.next(mainPanel);
-          }
-       }
+        if (!signInEmailTextField.getText().equals(null) && !signInPasswordTextField.getPassword().equals(null)) {
+            if (clientController.signIn(signInEmailTextField.getText(), new String(signInPasswordTextField.getPassword()))) {
+                
+                myUser=clientController.getUser();
+                friends=myUser.getFriends();
+                userNameLabel.setText(myUser.getUsername());
+                emailLabel.setText(myUser.getEmail());
+                Vector<String> friendsNames=new Vector<>();
+                
+                for(int i=0;i<friends.size();i++){
+                
+                friendsNames.add(friends.elementAt(i).getUsername());
+                }
+                
+                friendsList.setListData(friendsNames);
+                
+                
+                cardLayout.next(mainPanel);
+                
+                
+            } else {
+                errorLabel.setText("Login Problem");
+            }
+        }
     }//GEN-LAST:event_SignInActionPerformed
 
-    private void UserNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserNameTextFieldActionPerformed
+    private void signupUserNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupUserNameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_UserNameTextFieldActionPerformed
+    }//GEN-LAST:event_signupUserNameTextFieldActionPerformed
 
-    private void confirmpasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmpasswordTextFieldActionPerformed
-        if(passwordTextField.getText()!=confirmpasswordTextField.getText())
-       {
-         JOptionPane.showMessageDialog(this, " Password Not Matched ");
-       }
-    }//GEN-LAST:event_confirmpasswordTextFieldActionPerformed
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+        if ((!signUpPasswordField.getPassword().equals("")) && (new String(signUpPasswordField.getPassword()).equals(new String(ConfirmPasswordField.getPassword())) == true)) {
+            errorRegister.setText(" ");
+            if (clientController.signup(signupUserNameTextField.getText(), signUpEmailTextField.getText(), new String(signUpPasswordField.getPassword()))) {
 
-    private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
-       
-           clientController.signup(UserNameTextField.getText(),EmailTextField.getText(),PasswordTextField.getText());
-       
-    }//GEN-LAST:event_RegisterActionPerformed
+                signInEmailTextField.setText(signUpEmailTextField.getText());
+                signInPasswordTextField.setText(new String(signUpPasswordField.getPassword()));
+                cardLayout.first(mainPanel);
+                SignIn.doClick();
+                
+                
+            }
+        } else {
+            errorRegister.setText("Password Not Matched ");
+        }
 
-    private void EmailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailTextFieldActionPerformed
-      if(!clientController.checkEmail(EmailTextField.getText()))
-      {
-         JOptionPane.showMessageDialog(this, " This E-mail is used ");  
-      }
-          
-    }//GEN-LAST:event_EmailTextFieldActionPerformed
+
+    }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void signUpEmailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpEmailTextFieldActionPerformed
+
+    }//GEN-LAST:event_signUpEmailTextFieldActionPerformed
 
     private void SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpActionPerformed
-      
-          
-              cardLayout.last(mainPanel);
-         
+
+        cardLayout.last(mainPanel);
+
     }//GEN-LAST:event_SignUpActionPerformed
+//Check email 
+    private void signUpEmailTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_signUpEmailTextFieldFocusLost
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+
+    }//GEN-LAST:event_signUpEmailTextFieldFocusLost
+
+    private void ConfirmPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldFocusLost
+
+    }//GEN-LAST:event_ConfirmPasswordFieldFocusLost
+
+    private void ConfirmPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_ConfirmPasswordFieldActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void signUpEmailTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_signUpEmailTextFieldFocusGained
 
-<<<<<<< HEAD
-    JDialog.setDefaultLookAndFeelDecorated(true);
+    }//GEN-LAST:event_signUpEmailTextFieldFocusGained
+
+    private void ConfirmPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldKeyTyped
+
+
+    }//GEN-LAST:event_ConfirmPasswordFieldKeyTyped
+
+    private void signUpEmailTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signUpEmailTextFieldKeyTyped
+
+
+    }//GEN-LAST:event_signUpEmailTextFieldKeyTyped
+
+    private void ConfirmPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ConfirmPasswordFieldKeyReleased
+
+       
+        //Check wether the password and password confirmation is identical or not
+        if(!new String(signUpPasswordField.getPassword()).equals(new String(ConfirmPasswordField.getPassword()))){
+            
+            errorRegister.setText("Password Not Matched ");
+             checkPasswordConfirmFlag=false;
+            
+        }
+        else{
+            
+            errorRegister.setText("");
+             checkPasswordConfirmFlag=true;
+             checkPasswordFlag=true;
+        }
+        
+        //Check it is not an empty textField
+         if(!new String(ConfirmPasswordField.getPassword()).equals("")){
+           
+             if (checkEmailFlag && checkUserNameflag && checkPasswordFlag && checkPasswordConfirmFlag) {
+
+                    registerButton.setEnabled(true);
+                } 
+             else{
+                
+                 
+                 registerButton.setEnabled(false);
+            }
+            
+            
+        }
+       
+       
+
+    }//GEN-LAST:event_ConfirmPasswordFieldKeyReleased
+
+    private void signUpEmailTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signUpEmailTextFieldKeyReleased
+
+        boolean flag = clientController.checkEmail(signUpEmailTextField.getText());
+        if (!clientController.checkEmail(signUpEmailTextField.getText())) {
+
+            emailimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/correct.png")));
+            checkEmailFlag = true;
+            if (checkEmailFlag && checkUserNameflag && checkPasswordFlag && checkPasswordConfirmFlag) {
+
+                registerButton.setEnabled(true);
+            }
+
+        } else {
+
+            emailimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/errorImage.png")));
+
+            checkEmailFlag = false;
+            registerButton.setEnabled(false);
+
+        }
+        
    
-    
-=======
-  /*  JDialog.setDefaultLookAndFeelDecorated(true);
->>>>>>> origin/master
-    result = JOptionPane.showConfirmDialog(FriendListPanel,"Do you want to add this person ?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-    if (result == JOptionPane.NO_OPTION) {
-      System.out.println("No button clicked");
-    } else if (result == JOptionPane.YES_OPTION) {
-      System.out.println("Yes button clicked");
-    } else if (result == JOptionPane.CLOSED_OPTION) {
-      System.out.println("JOptionPane closed");
-    }
-<<<<<<< HEAD
-    
-    //    System.out.println("The button is presses");
-=======
-    */
-        System.out.println("The button is presses");
->>>>>>> origin/master
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_signUpEmailTextFieldKeyReleased
 
+    private void signupUserNameTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signupUserNameTextFieldKeyReleased
+
+        if(signupUserNameTextField.getText().equals("")){
+            
+            checkUserNameflag=false;
+            registerButton.setEnabled(false);
+        
+        }else{
+        
+            checkUserNameflag=true;
+            if(checkEmailFlag&&checkPasswordConfirmFlag&&checkPasswordFlag&&checkUserNameflag){
+            
+                registerButton.setEnabled(true);
+            }
+        }
+        
+
+    }//GEN-LAST:event_signupUserNameTextFieldKeyReleased
+
+    private void signUpPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signUpPasswordFieldKeyReleased
+
+       //Check wether the password and password confirmation is identical or not
+        if(!new String(signUpPasswordField.getPassword()).equals(new String(ConfirmPasswordField.getPassword()))){
+            
+            errorRegister.setText("Password Not Matched ");
+            checkPasswordFlag=false;
+            
+        }
+        else{
+            
+            errorRegister.setText("");
+            checkPasswordFlag=true;
+            checkPasswordConfirmFlag=true;
+        }
+        
+        //Check if it is not empty 
+        if(!new String(signUpPasswordField.getPassword()).equals("")){
+            
+             if (checkEmailFlag && checkUserNameflag && checkPasswordFlag && checkPasswordConfirmFlag) {
+
+                    registerButton.setEnabled(true);
+                }
+             else{
+                    
+                    
+                    registerButton.setEnabled(false);
+                 }
+            
+       
+        }
+        
+        
+        
+       
+
+
+    }//GEN-LAST:event_signUpPasswordFieldKeyReleased
+
+    private void signUpPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signUpPasswordFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_signUpPasswordFieldKeyTyped
+
+    private void signUpPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_signUpPasswordFieldActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        userNameString = clientController.searchEmail(searchTextField.getText());
+
+        {
+           
+
+                if (userNameString != null) {
+                    this.showAddDialog(userNameString);
+                } else {
+                    JOptionPane.showMessageDialog(FriendListPanel, "The user that you search about doesn't exsist .");
+                   
+                }
+            
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void searchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFieldKeyReleased
+       if(!searchTextField.getText().equals("")){
+        searchButton.setEnabled(true);
+        }
+        else{
+         searchButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_searchTextFieldKeyReleased
+
+    public void showAddDialog(String usrName) {
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        result = JOptionPane.showConfirmDialog(FriendListPanel, "Do you want to add  " + usrName + "?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.NO_OPTION) {
+            System.out.println("No button clicked");
+        } else if (result == JOptionPane.YES_OPTION) {
+            System.out.println("Yes button clicked");
+        } else if (result == JOptionPane.CLOSED_OPTION) {
+            System.out.println("JOptionPane closed");
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -578,36 +800,31 @@ public class MessengerGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               MessengerGui.this.setVisible(true);
+                MessengerGui.this.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFrame Chat;
+    private javax.swing.JPasswordField ConfirmPasswordField;
     private javax.swing.JLabel ConfirmPasswordLabel;
     private javax.swing.JLabel EmailLabel;
-    private javax.swing.JTextField EmailTextField;
     private javax.swing.JPanel FriendListPanel;
     private javax.swing.JLabel PasswordLabel;
-    private javax.swing.JTextField PasswordTextField;
-    private javax.swing.JButton Register;
     private javax.swing.JButton SignIn;
     private javax.swing.JPanel SignPanel;
     private javax.swing.JButton SignUp;
     private javax.swing.JPanel SignUpPanel;
     private javax.swing.JLabel UserNameLabel;
-    private javax.swing.JTextField UserNameTextField;
-    private javax.swing.JPanel chatPanel;
-    private javax.swing.JTextField confirmpasswordTextField;
-    private javax.swing.JLabel email;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel emailimage;
     private javax.swing.JLabel errorLabel;
+    private javax.swing.JLabel errorRegister;
+    private javax.swing.JList<String> friendsList;
+    private javax.swing.JLabel imagepass;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -617,17 +834,19 @@ public class MessengerGui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JPasswordField passwordTextField;
-    private javax.swing.JTextField userNameTextField;
-    private javax.swing.JLabel username;
+    private javax.swing.JButton registerButton;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField searchTextField;
+    private javax.swing.JTextField signInEmailTextField;
+    private javax.swing.JPasswordField signInPasswordTextField;
+    private javax.swing.JTextField signUpEmailTextField;
+    private javax.swing.JPasswordField signUpPasswordField;
+    private javax.swing.JTextField signupUserNameTextField;
+    private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables
+
 }

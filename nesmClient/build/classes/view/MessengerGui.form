@@ -2,85 +2,6 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Container class="javax.swing.JFrame" name="Chat">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" pref="421" max="32767" attributes="0"/>
-                      <Component id="jSeparator4" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jTextField2" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="210" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton3" pref="66" max="32767" attributes="0"/>
-                      <Component id="jTextField2" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="rows" type="int" value="5"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Component class="javax.swing.JSeparator" name="jSeparator4">
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Send"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
-          </Events>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="chatPanel">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-    </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
     </Menu>
   </NonVisualComponents>
@@ -171,10 +92,10 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="passwordTextField" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
+                              <Component id="signInPasswordTextField" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="userNameTextField" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="signInEmailTextField" alignment="1" max="32767" attributes="0"/>
                                   <Component id="jLabel1" alignment="1" pref="164" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -187,11 +108,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel1" min="-2" pref="22" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="userNameTextField" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="signInEmailTextField" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="passwordTextField" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="signInPasswordTextField" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -206,10 +127,10 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="User Name : "/>
+                    <Property name="text" type="java.lang.String" value="E-mail : "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="userNameTextField">
+                <Component class="javax.swing.JTextField" name="signInEmailTextField">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
@@ -219,7 +140,7 @@
                     <Property name="text" type="java.lang.String" value="Password :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="passwordTextField">
+                <Component class="javax.swing.JPasswordField" name="signInPasswordTextField">
                 </Component>
               </SubComponents>
             </Container>
@@ -340,12 +261,12 @@
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jButton2" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Component id="searchButton" min="-2" pref="48" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField1" min="-2" pref="192" max="-2" attributes="0"/>
+                                  <Component id="searchTextField" min="-2" pref="192" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="email" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="username" min="-2" pref="126" max="-2" attributes="0"/>
+                              <Component id="emailLabel" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="userNameLabel" min="-2" pref="126" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -364,13 +285,13 @@
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="username" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="userNameLabel" min="-2" pref="26" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="email" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="emailLabel" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton2" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="searchButton" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="searchTextField" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="26" max="32767" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
@@ -386,22 +307,36 @@
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator1">
                 </Component>
-                <Component class="javax.swing.JLabel" name="username">
+                <Component class="javax.swing.JLabel" name="userNameLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="UserName"/>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="hello"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="email">
+                <Component class="javax.swing.JLabel" name="emailLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="username@gmail.com"/>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton2">
+                <Component class="javax.swing.JButton" name="searchButton">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/view/addfriend.png"/>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="searchTextField">
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchTextFieldKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator2">
                 </Component>
@@ -439,7 +374,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JList" name="jList1">
+                    <Component class="javax.swing.JList" name="friendsList">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -518,25 +453,31 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="signUpPasswordField" max="32767" attributes="0"/>
+                                  <Component id="errorRegister" max="32767" attributes="0"/>
                                   <Component id="UserNameLabel" max="32767" attributes="0"/>
-                                  <Component id="UserNameTextField" max="32767" attributes="0"/>
+                                  <Component id="signupUserNameTextField" max="32767" attributes="0"/>
                                   <Component id="EmailLabel" max="32767" attributes="0"/>
-                                  <Component id="EmailTextField" max="32767" attributes="0"/>
+                                  <Component id="signUpEmailTextField" max="32767" attributes="0"/>
                                   <Component id="PasswordLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PasswordTextField" max="32767" attributes="0"/>
                                   <Component id="ConfirmPasswordLabel" pref="157" max="32767" attributes="0"/>
-                                  <Component id="confirmpasswordTextField" max="32767" attributes="0"/>
+                                  <Component id="ConfirmPasswordField" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="emailimage" pref="33" max="32767" attributes="0"/>
+                                  <Component id="imagepass" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-                              <Component id="Register" min="-2" pref="83" max="-2" attributes="0"/>
+                              <Component id="registerButton" min="-2" pref="83" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="121" max="32767" attributes="0"/>
+                      <EmptySpace pref="82" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -546,21 +487,29 @@
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="UserNameLabel" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="UserNameTextField" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="signupUserNameTextField" min="-2" pref="28" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="EmailLabel" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="EmailTextField" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="signUpEmailTextField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="emailimage" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="PasswordLabel" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="PasswordTextField" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="signUpPasswordField" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ConfirmPasswordLabel" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="confirmpasswordTextField" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="Register" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="imagepass" max="32767" attributes="0"/>
+                          <Component id="ConfirmPasswordField" pref="30" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="errorRegister" min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="registerButton" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace pref="202" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -572,12 +521,13 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="  UserName :"/>
+                <Property name="text" type="java.lang.String" value="  User Name :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="UserNameTextField">
+            <Component class="javax.swing.JTextField" name="signupUserNameTextField">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UserNameTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signupUserNameTextFieldActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="signupUserNameTextFieldKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="EmailLabel">
@@ -588,9 +538,13 @@
                 <Property name="text" type="java.lang.String" value=" E-mail :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="EmailTextField">
+            <Component class="javax.swing.JTextField" name="signUpEmailTextField">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EmailTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signUpEmailTextFieldActionPerformed"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="signUpEmailTextFieldFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="signUpEmailTextFieldFocusLost"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="signUpEmailTextFieldKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="signUpEmailTextFieldKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="PasswordLabel">
@@ -601,8 +555,6 @@
                 <Property name="text" type="java.lang.String" value=" Password :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="PasswordTextField">
-            </Component>
             <Component class="javax.swing.JLabel" name="ConfirmPasswordLabel">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -611,17 +563,39 @@
                 <Property name="text" type="java.lang.String" value=" Confirm Password :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="confirmpasswordTextField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmpasswordTextFieldActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="Register">
+            <Component class="javax.swing.JButton" name="registerButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Register"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegisterActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="emailimage">
+            </Component>
+            <Component class="javax.swing.JLabel" name="imagepass">
+            </Component>
+            <Component class="javax.swing.JLabel" name="errorRegister">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="signUpPasswordField">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signUpPasswordFieldActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="signUpPasswordFieldKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="signUpPasswordFieldKeyTyped"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="ConfirmPasswordField">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConfirmPasswordFieldActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ConfirmPasswordFieldFocusLost"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ConfirmPasswordFieldKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ConfirmPasswordFieldKeyTyped"/>
               </Events>
             </Component>
           </SubComponents>

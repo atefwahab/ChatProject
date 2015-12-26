@@ -17,7 +17,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     }
 
     @Override
-    public boolean signIn(String email, String Password) {
+    public User signIn(String email, String Password) {
         
         System.out.println("sign in has pressed");
         return serverController.signIn(email, Password);
@@ -42,6 +42,11 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
         
        return serverController.searchEmail(email);
         
+    }
+
+    @Override
+    public User getUser() throws RemoteException {
+        return serverController.getUser();
     }
     
 }
