@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.JMenuBar;
 import model.User;
 
 /**
@@ -45,6 +46,9 @@ public class MessengerGui extends javax.swing.JFrame {
     // >--constuctor-->
     public MessengerGui(ClientController c) {
         initComponents();
+        JMenuBar menuBar = new JMenuBar();
+        
+        add(menuBar);
         clientController = c;
         cardLayout = (CardLayout) mainPanel.getLayout();
         this.main();
@@ -102,7 +106,6 @@ public class MessengerGui extends javax.swing.JFrame {
         errorRegister = new javax.swing.JLabel();
         signUpPasswordField = new javax.swing.JPasswordField();
         ConfirmPasswordField = new javax.swing.JPasswordField();
-        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -506,8 +509,6 @@ public class MessengerGui extends javax.swing.JFrame {
 
         mainPanel.add(SignUpPanel, "signUp");
 
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -836,7 +837,6 @@ public class MessengerGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

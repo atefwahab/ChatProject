@@ -15,7 +15,7 @@ import java.util.Vector;
 public class User implements Serializable{
     
     private String username;
-    
+   private String state="Available"; 
     private String email;
     private Integer id;
     
@@ -98,6 +98,20 @@ public class User implements Serializable{
      */
     public void setFriends(Vector<User> friends) {
         this.friends = friends;
+    }
+
+    /**
+     * @return the state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(String state) {
+        this.state = state;
     }
     
 }
