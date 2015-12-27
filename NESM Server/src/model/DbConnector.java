@@ -397,8 +397,9 @@ public class DbConnector
 	 * this method add senderID and recieverID into friendsRequest database.
 	 */
 	
-	public boolean addFriendRequest(int sendId,int receiverID) {
+	public boolean addFriendRequest(int sendId,String receiverEmail) {
 		
+            int receiverID=getUserId(receiverEmail);
         try {
             query="INSERT INTO `request`( `send_request`, `recevier_id`) VALUES ("+sendId+","+receiverID+")";
             state.executeUpdate(query);

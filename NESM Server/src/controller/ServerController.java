@@ -93,9 +93,9 @@ public class ServerController {
      * @param receiverID 
      * return boolean
      */
-    public boolean addFriendRequest(int sendId,int receiverID){
+    public boolean addFriendRequest(int sendId,String receiverEmail){
     
-        return dbConnector.addFriendRequest(sendId, receiverID);
+        return dbConnector.addFriendRequest(sendId, receiverEmail);
     }
     
     
