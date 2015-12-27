@@ -87,6 +87,30 @@ public class ServerController {
         return obj;
     }
     
+    /**
+     * Add Friend Request
+     * @param  sendId
+     * @param receiverID 
+     * return boolean
+     */
+    public boolean addFriendRequest(int sendId,int receiverID){
+    
+        return dbConnector.addFriendRequest(sendId, receiverID);
+    }
+    
+    
+    /**
+     * Add 2 Friends into db Friends table..and Remove these friends from friend request.
+     * @param SenderId
+     * @param receiverID
+     * @return 
+     */
+    public  boolean addFriends(int SenderId,int receiverID) {
+    
+        return dbConnector.addFriends(SenderId, receiverID);
+    }
+    
+    
     
     
     public static void main(String[] args) {

@@ -48,5 +48,17 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     public User getUser() throws RemoteException {
         return serverController.getUser();
     }
+
+    @Override
+    public boolean addFriendRequest(int sendId, int receiverID) throws RemoteException {
+        
+        return serverController.addFriendRequest(sendId, receiverID);
+    }
+
+    @Override
+    public boolean addFriends(int SenderId, int receiverID) throws RemoteException {
+      
+        return serverController.addFriends(SenderId, receiverID);
+    }
     
 }

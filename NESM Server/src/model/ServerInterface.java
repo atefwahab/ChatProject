@@ -14,4 +14,8 @@ public interface ServerInterface extends Remote{
     String searchEmail(String email)throws RemoteException;
     User getUser()throws RemoteException;
     
+    public boolean addFriendRequest(int sendId,int receiverID)throws RemoteException;
+    
+    public  boolean addFriends(int SenderId,int receiverID)throws RemoteException;
+    
 }
