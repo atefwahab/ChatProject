@@ -60,5 +60,21 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
       
         return serverController.addFriends(SenderId, receiverID);
     }
+
+    @Override
+    public void sendMessage(int senderId, int friendId, String message) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void register(int id,ClientInterface clientInterface) throws RemoteException {
+        serverController.register(id, clientInterface);
+    }
+
+    @Override
+    public void unregister(int id) throws RemoteException {
+       
+        serverController.unregister(id);
+    }
     
 }

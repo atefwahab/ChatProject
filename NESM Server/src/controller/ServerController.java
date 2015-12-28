@@ -4,6 +4,8 @@ package controller;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
+import model.ClientInterface;
 import model.DbConnector;
 import model.ServerImpl;
 import model.User;
@@ -18,6 +20,9 @@ public class ServerController {
     DbConnector dbConnector;
     
     User user;
+    
+    //Online Users
+   HashMap<Integer,ClientInterface>onlineUsers=new HashMap<>();
     
     // >-- Constructor -->
     public ServerController() {
@@ -50,12 +55,12 @@ public class ServerController {
     //Controller Signup
     public boolean signUp(String username, String email, String pasword){
         if(dbConnector.signUp(email, pasword, username)){
-            System.out.println("true signup");
+         
             return true;
             
         }
         else{
-            System.out.println("false signup");
+            
             return false;
         }
     }
@@ -110,6 +115,24 @@ public class ServerController {
         return dbConnector.addFriends(SenderId, receiverID);
     }
     
+    /**
+     * Register new object
+     */
+    public void register(int id,ClientInterface client){
+        
+         onlineUsers.put(id, client);
+    
+           
+    
+    }
+    /**
+     * Unregister a user from server
+     * @param id 
+     */
+    public void unregister(int id){
+    
+        onlineUsers.remove(id);
+    }
     
     
     

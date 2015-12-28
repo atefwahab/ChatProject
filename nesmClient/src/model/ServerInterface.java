@@ -18,4 +18,10 @@ public interface ServerInterface extends Remote{
     
     public  boolean addFriends(int SenderId,int receiverID)throws RemoteException;
     
+    public void sendMessage(int senderId,int friendId,String message)throws RemoteException;
+    
+    public void register(int id,ClientInterface clientInterface)throws RemoteException;
+    
+    public void unregister(int id)throws RemoteException;
+    
 }
