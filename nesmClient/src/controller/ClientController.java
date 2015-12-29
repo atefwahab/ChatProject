@@ -4,10 +4,15 @@ import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.ClientImpl;
 import model.ServerInterface;
 import model.User;
+import view.ChatGui;
+import view.FriendListJFrame;
 import view.MessengerGui;
 
 public class ClientController {
@@ -16,9 +21,19 @@ public class ClientController {
     // object from messenger  gui 
     MessengerGui messengerGui;
     User user;
+    FriendListJFrame friendListJframe;
+    //HashMap represent open Window 
+    HashMap<Integer,ChatGui> openWindows = new HashMap<>();
+    ClientImpl clientImpl;
+    Vector<User>friends;
 
-    // >--Constructor--->
+// >--Constructor--->
     ClientController() {
+        try {
+            this.clientImpl = new ClientImpl(this);
+        } catch (RemoteException ex) {
+           ex.printStackTrace();
+        }
         try {
             Registry reg = LocateRegistry.getRegistry("127.0.0.1", 5000);
             serverRef = (ServerInterface) reg.lookup("Server Object");
@@ -37,8 +52,13 @@ public class ClientController {
          boolean flag=false;
         try {
             user=serverRef.signIn(email,password);
+            friends=user.getFriends();
             if (user!=null){
                 flag=true;
+                friendListJframe=new FriendListJFrame(this, user);
+                
+                serverRef.register(user.getId(),clientImpl);
+                
             } 
         } catch (RemoteException ex) {
            ex.printStackTrace();
@@ -87,8 +107,88 @@ public class ClientController {
             return res;
         }
     }
+    /**
+     * this method is used to send the message to server .
+     * @param senderId
+     * @param friendId
+     * @param message 
+     */
+     public void sendMessage(int friendId,String message)
+     {
+        try {
+            serverRef.sendMessage(user.getId(), friendId, message);
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+     }
+    /**
+     * this method is used to receive a message from server and send it to the client 
+     * @param msg
+     * @param friendId 
+     */
+    public void receive(String msg, int friendId)
+    {
+        ChatGui chatGui= null;
+        System.out.println(friendId);
+        for( User friendUser : user.getFriends())
+        {
+            System.out.println(friendUser.getId()+" "+friendId);
+            if(friendUser.getId()== friendId)
+            {
+                System.out.println("i am in for");
+                chatGui = this.open(friendUser);
+            }
+        }
+        chatGui.recieve(msg);
+    }
+    
+    
+    /**
+     * 
+     * @param friendId
+     * @return 
+     */
+    public ChatGui open(User user) 
+    {
+        ChatGui friendChatGui ;
+        if(!openWindows.containsKey(user.getId()))
+        {
+            friendChatGui = new ChatGui(user,this);
+            openWindows.put(user.getId(),friendChatGui);
+            
+            return friendChatGui;
+        }
+        else
+        {
+           friendChatGui = openWindows.get(user.getId());
+           return friendChatGui ;
+        }
+    }
+    
+    
+    
+    
+    
+     public void close (int friendId)
+     {
+           openWindows.remove(friendId);
+     }
 
     
+     public void receiveAnnouncemt(String msg){
+     
+         User serverUser=new User();
+         serverUser.setUsername("Hi Messenger Server");
+         serverUser.setId(0);
+         
+         ChatGui chatGui=open(serverUser);
+         if(chatGui!=null)
+         chatGui.recieve(msg);
+         
+         
+         
+     }
+     
    public User getUser(){
    
         return user;

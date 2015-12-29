@@ -5,6 +5,7 @@
  */
 package model;
 
+import controller.ClientController;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -13,20 +14,22 @@ import java.rmi.server.UnicastRemoteObject;
  * @author atef
  */
 public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
+    
+    ClientController clientController ;
 
     //Constructor
-    public ClientImpl()throws RemoteException{
-    
-    
+    public ClientImpl(ClientController c)throws RemoteException{
+        clientController=c;
+        
     }
     @Override
     public void receive(String msg, Integer friendId) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        clientController.receive(msg,friendId);
     }
 
     @Override
     public void receiveAnnoncement(String msg) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        clientController.receiveAnnouncemt(msg);
     }
     
 }

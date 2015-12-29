@@ -334,6 +334,14 @@ public class DbConnector
                     
                     id.add(resultSet.getInt(1));
                 }
+                query="SELECT `user_id` FROM `friends` WHERE `friend_id`="+userID;
+                resultSet=state.executeQuery(query);
+                while(resultSet.next()){
+                    
+                    id.add(resultSet.getInt(1));
+                }
+                
+                
                    
                 //Getting information of Friends 
                 for(Integer item:id){

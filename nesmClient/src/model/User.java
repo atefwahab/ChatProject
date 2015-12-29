@@ -15,12 +15,16 @@ import java.util.Vector;
 public class User implements Serializable{
     
     private String username;
-   private String state="Available"; 
+   private int state=User.Available; 
     private String email;
     private Integer id;
     
     private Vector<User> friends;
     private Vector<Integer> friendRequests;
+    public static final int Available=1;
+    public static final int Busy=2;
+    public static final int Away=3;
+    public static final int Offline=0;
 
     public User(){}
     
@@ -103,15 +107,37 @@ public class User implements Serializable{
     /**
      * @return the state
      */
-    public String getState() {
+    public int getState() {
         return state;
     }
 
     /**
      * @param state the state to set
      */
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
+    }
+    
+    
+    public static String getStringState(int state){
+        String txtState=null;
+        switch(state){
+        
+            case User.Available:
+                txtState ="Available";
+                break;
+            case User.Busy:
+                txtState="Busy";
+                break;
+            case User.Away:
+                txtState="Away";
+                break;
+            case User.Offline:
+                txtState="Offline";
+                break;
+                        
+        }
+        return txtState;
     }
     
 }

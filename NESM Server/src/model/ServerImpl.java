@@ -63,7 +63,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
 
     @Override
     public void sendMessage(int senderId, int friendId, String message) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       serverController.sendMessage(senderId, friendId, message);
     }
 
     @Override

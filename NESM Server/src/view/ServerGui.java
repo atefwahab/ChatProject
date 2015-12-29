@@ -32,8 +32,8 @@ public class ServerGui extends javax.swing.JFrame {
     private void initComponents() {
 
         southPanel = new javax.swing.JPanel();
-        southButton = new javax.swing.JButton();
-        serverTextField = new javax.swing.JTextField();
+        sendAnnouncementButton = new javax.swing.JButton();
+        inputTextField = new javax.swing.JTextField();
         northPanel = new javax.swing.JPanel();
         OnToggleButton = new javax.swing.JToggleButton();
         onLineLabel = new javax.swing.JLabel();
@@ -48,9 +48,12 @@ public class ServerGui extends javax.swing.JFrame {
 
         southPanel.setBackground(new java.awt.Color(255, 102, 102));
 
-        southButton.setBackground(new java.awt.Color(255, 102, 102));
-        southButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nihal\\Downloads\\send-64.png")); // NOI18N
-        southButton.setActionCommand("");
+        sendAnnouncementButton.setBackground(new java.awt.Color(255, 102, 102));
+        sendAnnouncementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendAnnouncementButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout southPanelLayout = new javax.swing.GroupLayout(southPanel);
         southPanel.setLayout(southPanelLayout);
@@ -58,17 +61,17 @@ public class ServerGui extends javax.swing.JFrame {
             southPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(southPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(serverTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(southButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sendAnnouncementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
         southPanelLayout.setVerticalGroup(
             southPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, southPanelLayout.createSequentialGroup()
                 .addGroup(southPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(southButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(serverTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                    .addComponent(sendAnnouncementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(inputTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -150,6 +153,11 @@ public class ServerGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void sendAnnouncementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendAnnouncementButtonActionPerformed
+        serverController.sendAnnouncement(inputTextField.getText());
+        inputTextField.setText("");
+    }//GEN-LAST:event_sendAnnouncementButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,14 +196,14 @@ public class ServerGui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton OnToggleButton;
     private javax.swing.JPanel centerPanel;
+    private javax.swing.JTextField inputTextField;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel northPanel;
     private javax.swing.JLabel offLabel;
     private javax.swing.JLabel offLineLabel;
     private javax.swing.JLabel onLabel;
     private javax.swing.JLabel onLineLabel;
-    private javax.swing.JTextField serverTextField;
-    private javax.swing.JButton southButton;
+    private javax.swing.JButton sendAnnouncementButton;
     private javax.swing.JPanel southPanel;
     private javax.swing.JButton statisticsButton;
     // End of variables declaration//GEN-END:variables

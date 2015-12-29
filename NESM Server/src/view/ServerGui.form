@@ -40,9 +40,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="serverTextField" min="-2" pref="304" max="-2" attributes="0"/>
+                  <Component id="inputTextField" min="-2" pref="304" max="-2" attributes="0"/>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Component id="southButton" min="-2" pref="66" max="-2" attributes="0"/>
+                  <Component id="sendAnnouncementButton" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -51,8 +51,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="southButton" pref="0" max="32767" attributes="0"/>
-                      <Component id="serverTextField" pref="54" max="32767" attributes="0"/>
+                      <Component id="sendAnnouncementButton" pref="0" max="32767" attributes="0"/>
+                      <Component id="inputTextField" pref="54" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -60,18 +60,17 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="southButton">
+        <Component class="javax.swing.JButton" name="sendAnnouncementButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Nihal\Downloads\send-64.png"/>
-            </Property>
-            <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendAnnouncementButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="serverTextField">
+        <Component class="javax.swing.JTextField" name="inputTextField">
         </Component>
       </SubComponents>
     </Container>
