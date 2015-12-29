@@ -24,4 +24,6 @@ public interface ClientInterface extends Remote{
      * @throws RemoteException 
      */
     void receiveAnnoncement(String msg)throws RemoteException;
+    
+    void recieveState(int state,int friendId)throws RemoteException;
 }

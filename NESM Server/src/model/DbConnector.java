@@ -76,6 +76,16 @@ public class DbConnector
                             int id =getUserId(email);
                             user.setId(getUserId(email));
                             user.setUsername(getUsername(id));
+                            
+                            
+                            if(getState(id)==User.Offline){
+                                
+                                setState(User.Available,id);
+                                user.setState(getState(id));
+                            }else{
+                            
+                                user.setState(getState(id));
+                            }
                             user.setFriends(getFriends(id));
                             
                            
@@ -558,6 +568,37 @@ public class DbConnector
         }
         
         return fileId;
+    }
+    
+    
+    public int getState(int userId){
+        int userState=0;
+        String query="SELECT `state` FROM `users` WHERE `user_id`="+userId;
+        
+        try {
+            ResultSet reslt=state.executeQuery(query);
+            while(reslt.next()){
+                userState=reslt.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    return userState;
+    }
+    
+    
+    
+    public void setState(int userState,int userId){
+        
+        try {
+            query="UPDATE `users` SET `state`="+userState+" WHERE `user_id`="+userId;
+            
+            state.executeUpdate(query);
+        } catch (SQLException ex) {
+           ex.printStackTrace();
+        }
+        
+    
     }
  
 }

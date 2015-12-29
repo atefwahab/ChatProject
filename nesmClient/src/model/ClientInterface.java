@@ -7,7 +7,6 @@ package model;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import view.ChatGui;
 
 
 public interface ClientInterface extends Remote{
@@ -19,7 +18,6 @@ public interface ClientInterface extends Remote{
      */
     void receive(String msg,Integer friendId)throws RemoteException;
     
-    
     /**
      * this method used by Server to broadcast an announcement
      * @param msg
@@ -27,5 +25,5 @@ public interface ClientInterface extends Remote{
      */
     void receiveAnnoncement(String msg)throws RemoteException;
     
-    
+    void recieveState(int state,int friendId)throws RemoteException;
 }

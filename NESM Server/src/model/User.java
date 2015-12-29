@@ -15,7 +15,7 @@ import java.util.Vector;
 public class User implements Serializable{
     
     private String username;
-   private int state=User.Available; 
+   private int state=User.Offline; 
     private String email;
     private Integer id;
     

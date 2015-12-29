@@ -31,5 +31,20 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
     public void receiveAnnoncement(String msg) throws RemoteException {
         clientController.receiveAnnouncemt(msg);
     }
+
+    /**
+     * This method used to update the status of friends.
+     * @param friendId
+     * @throws RemoteException 
+     */
+    @Override
+    public void recieveState(int state,int friendId) throws RemoteException {
+        System.out.println("client implementation 1");
+        clientController.recieveState(state, friendId);
+        System.out.println("client implementation 2");
+                
+    }
+    
+    
     
 }

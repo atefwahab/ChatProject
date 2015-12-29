@@ -4,6 +4,7 @@ package model;
 import controller.ServerController;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Vector;
 
 
 public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
@@ -76,5 +77,23 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
        
         serverController.unregister(id);
     }
+
+    /**
+     * called by client to Update State .
+     * @param state
+     * @throws RemoteException 
+     */
+    @Override
+    public void updateState(int state,Vector<Integer> friendsId) throws RemoteException {
+       serverController.updateState(state,friendsId);
+    }
+
+    @Override
+    public void setMyState(int userId,int state) throws RemoteException {
+       
+        serverController.setMyState(userId, state);
+    }
+
+  
     
 }

@@ -52,6 +52,7 @@ public class ClientController {
          boolean flag=false;
         try {
             user=serverRef.signIn(email,password);
+            System.out.println(user.getState());
             friends=user.getFriends();
             if (user!=null){
                 flag=true;
@@ -129,13 +130,13 @@ public class ClientController {
     public void receive(String msg, int friendId)
     {
         ChatGui chatGui= null;
-        System.out.println(friendId);
+     
         for( User friendUser : user.getFriends())
         {
-            System.out.println(friendUser.getId()+" "+friendId);
+           
             if(friendUser.getId()== friendId)
             {
-                System.out.println("i am in for");
+                
                 chatGui = this.open(friendUser);
             }
         }
@@ -192,6 +193,71 @@ public class ClientController {
    public User getUser(){
    
         return user;
+   }
+   
+   /**
+    * Update status of my friends
+    * @param friendId 
+    */
+   public void recieveState(int state,int friendId){
+       System.out.println("controller Recieve State ");
+       for( User friendUser : user.getFriends())
+        {
+            
+           System.out.println("controller Recieve State For 1");
+            if(friendUser.getId().equals(friendId))
+            {
+                System.out.println("controller Recieve State for if 2");
+               friendUser.setState(state);
+               System.out.println("controller Recieve State for if 3");
+               friendListJframe.paintList();
+               System.out.println("controller Recieve State for if 4");
+            }
+        }
+   
+   
+   }
+   
+  
+   public void updateState(int state){
+       
+       Vector<Integer> friendsId=new Vector<>();
+       
+       //Getting friends ids
+       for(User item:user.getFriends()){
+       
+           friendsId.add(item.getId());
+       }
+        try {
+            serverRef.updateState(state, friendsId);
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+   }
+   /**
+    * Set me offline
+    */
+   public void setMeOffline(){
+       
+        try {
+            serverRef.setMyState(user.getId(),User.Offline);
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+   
+       
+   }
+   /**
+    * Changing my state into database.
+    * @param state 
+    */
+   public void changeMyState(int state){
+   
+        try {
+            serverRef.setMyState(user.getId(), state);
+        } catch (RemoteException ex) {
+           ex.printStackTrace();
+        }
    }
     
     

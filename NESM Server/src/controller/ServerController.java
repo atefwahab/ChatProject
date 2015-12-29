@@ -185,6 +185,39 @@ public class ServerController {
      }
      
      
+     /**
+      * this method called by client to update its state
+      * @param state 
+      */
+     public void updateState(int state,Vector<Integer> friendsId){
+         ClientInterface friend;
+         System.out.println("Update state server 1");
+         for(Integer friendId:friendsId){
+             System.out.println("Update state server 2");
+            friend=onlineUsers.get(friendId);
+            System.out.println("Update state server 3");
+             if(friend!=null){
+                 
+                try {
+                    System.out.println("Update state server 4");
+                    friend.recieveState(state,friendId);
+                } catch (RemoteException ex) {
+                    ex.printStackTrace();
+                }
+             
+             }
+         
+         }
+             
+     }
+     /**
+      * this method user to set users offline
+      * @param userId 
+      */
+     public void setMyState(int userId,int state){
+     
+         dbConnector.setState(state, userId);
+     }
      
      
      /**
