@@ -20,13 +20,13 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     @Override
     public User signIn(String email, String Password) {
         
-        System.out.println("sign in has pressed");
+       
         return serverController.signIn(email, Password);
     }
 
     @Override
     public boolean signUp(String username, String email, String pasword) throws RemoteException {
-        System.out.println("Sign up has pressed");
+       
         return serverController.signUp(username, email, pasword);
     }
 
@@ -84,8 +84,8 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
      * @throws RemoteException 
      */
     @Override
-    public void updateState(int state,Vector<Integer> friendsId) throws RemoteException {
-       serverController.updateState(state,friendsId);
+    public void updateState(int state,User friendUser) throws RemoteException {
+       serverController.updateState(state,friendUser);
     }
 
     @Override

@@ -14,6 +14,7 @@ import model.User;
 import view.ChatGui;
 import view.FriendListJFrame;
 import view.MessengerGui;
+import view.ServerDown;
 
 public class ClientController {
 
@@ -32,7 +33,7 @@ public class ClientController {
         try {
             this.clientImpl = new ClientImpl(this);
         } catch (RemoteException ex) {
-           ex.printStackTrace();
+           
         }
         try {
             Registry reg = LocateRegistry.getRegistry("127.0.0.1", 5000);
@@ -41,7 +42,7 @@ public class ClientController {
             messengerGui.setResizable(false);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            new ServerDown();
         }
     }
 
@@ -52,13 +53,14 @@ public class ClientController {
          boolean flag=false;
         try {
             user=serverRef.signIn(email,password);
-            System.out.println(user.getState());
+            
             friends=user.getFriends();
             if (user!=null){
                 flag=true;
                 friendListJframe=new FriendListJFrame(this, user);
                 
                 serverRef.register(user.getId(),clientImpl);
+                
                 
             } 
         } catch (RemoteException ex) {
@@ -196,22 +198,23 @@ public class ClientController {
    }
    
    /**
-    * Update status of my friends
+    * Update status of my friends.
     * @param friendId 
     */
    public void recieveState(int state,int friendId){
-       System.out.println("controller Recieve State ");
+       
        for( User friendUser : user.getFriends())
         {
             
-           System.out.println("controller Recieve State For 1");
+           
+           
             if(friendUser.getId().equals(friendId))
             {
-                System.out.println("controller Recieve State for if 2");
+                
                friendUser.setState(state);
-               System.out.println("controller Recieve State for if 3");
+               
                friendListJframe.paintList();
-               System.out.println("controller Recieve State for if 4");
+               
             }
         }
    
@@ -221,15 +224,11 @@ public class ClientController {
   
    public void updateState(int state){
        
-       Vector<Integer> friendsId=new Vector<>();
        
-       //Getting friends ids
-       for(User item:user.getFriends()){
        
-           friendsId.add(item.getId());
-       }
+      
         try {
-            serverRef.updateState(state, friendsId);
+            serverRef.updateState(state,user);
         } catch (RemoteException ex) {
             ex.printStackTrace();
         }
@@ -241,6 +240,8 @@ public class ClientController {
        
         try {
             serverRef.setMyState(user.getId(),User.Offline);
+            serverRef.updateState(User.Offline, user);
+            serverRef.unregister(user.getId());
         } catch (RemoteException ex) {
             ex.printStackTrace();
         }
@@ -255,6 +256,7 @@ public class ClientController {
    
         try {
             serverRef.setMyState(user.getId(), state);
+            updateState(state);
         } catch (RemoteException ex) {
            ex.printStackTrace();
         }

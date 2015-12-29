@@ -362,6 +362,7 @@ public class DbConnector
                         userItem.setId(item);
                         userItem.setEmail(getEmail(item));
                         userItem.setUsername(getUsername(item));
+                        userItem.setState(getState(item));
                    
                         //adding the first user to vector
                          friends.add(userItem);
@@ -504,7 +505,7 @@ public class DbConnector
             resultSet=state.executeQuery(query);
             if (resultSet.next()) {
                 
-                System.out.println("true");
+                
                 flag=true;
                 
             }

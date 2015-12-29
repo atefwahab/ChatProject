@@ -1,6 +1,7 @@
 
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -15,7 +16,7 @@ public class render extends DefaultListCellRenderer implements ListCellRenderer<
     public Component getListCellRendererComponent(JList<? extends Object> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
        User user=(User)value;
-       setText(user.getUsername());
+       setText("<html> <h3 style=\"font-weight:bold; padding-left:5px; color:rgb(148,205,244);\">"+user.getUsername()+"</h3><h5 style=\"padding-left:8px; color:grey;\">"+User.getStringState(user.getState())+"</h5></html>");
        //setText(user.getState());
        
        ImageIcon available = new ImageIcon(getClass().getResource("available.png"));
@@ -41,7 +42,7 @@ public class render extends DefaultListCellRenderer implements ListCellRenderer<
        
        if(isSelected)
        {
-           setBackground(list.getSelectionBackground());
+           setBackground(new Color(240,240,240));
            setForeground(list.getSelectionForeground());
        }
        else

@@ -55,8 +55,10 @@ public class ServerController {
     public User signIn(String email, String Password) {
         
         
-       return dbConnector.signIn(email, Password);
-        
+        User obj=dbConnector.signIn(email, Password);
+       
+        updateState(obj.getState(),obj);
+        return obj; 
         
     }
 
@@ -139,6 +141,7 @@ public class ServerController {
      */
     public void unregister(int id){
     
+       
         onlineUsers.remove(id);
     }
     
@@ -189,18 +192,25 @@ public class ServerController {
       * this method called by client to update its state
       * @param state 
       */
-     public void updateState(int state,Vector<Integer> friendsId){
+     public void updateState(int state,User friendUser){
+         
          ClientInterface friend;
-         System.out.println("Update state server 1");
+         Vector<Integer> friendsId=friendUser.getFriendsId();
+         
+   
+         
          for(Integer friendId:friendsId){
-             System.out.println("Update state server 2");
-            friend=onlineUsers.get(friendId);
-            System.out.println("Update state server 3");
+             
+               
+                friend=onlineUsers.get(friendId);
+                
+                
              if(friend!=null){
                  
                 try {
-                    System.out.println("Update state server 4");
-                    friend.recieveState(state,friendId);
+                  
+                    friend.recieveState(state,friendUser.getId());
+                   
                 } catch (RemoteException ex) {
                     ex.printStackTrace();
                 }

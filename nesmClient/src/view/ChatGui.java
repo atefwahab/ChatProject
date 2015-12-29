@@ -109,7 +109,7 @@ public class ChatGui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(64, 128, 224));
+        jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
         clientOutputTextArea.setEditable(false);
         clientOutputTextArea.setColumns(20);

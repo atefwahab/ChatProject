@@ -20,6 +20,7 @@ public class User implements Serializable{
     private Integer id;
     
     private Vector<User> friends;
+    private Vector<Integer> friendsId=new Vector<>();
     private Vector<Integer> friendRequests;
     public static final int Available=1;
     public static final int Busy=2;
@@ -138,6 +139,18 @@ public class User implements Serializable{
                         
         }
         return txtState;
+    }
+    
+    
+    public Vector<Integer> getFriendsId(){
+        
+        for (int i = 0; i <friends.size(); i++) {
+            
+            friendsId.add(friends.get(i).getId());
+            
+        }
+    
+        return friendsId;
     }
     
 }

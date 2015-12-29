@@ -5,6 +5,7 @@
  */
 package view;
 
+
 import controller.ClientController;
 import java.awt.CardLayout;
 import java.util.Vector;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import model.User;
+import model.*;
+
 
 /**
  *
@@ -71,6 +74,7 @@ public class MessengerGui extends javax.swing.JFrame {
         signInEmailTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         signInPasswordTextField = new javax.swing.JPasswordField();
+        emailErrorPanel = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         errorLabel = new javax.swing.JLabel();
         SignIn = new javax.swing.JButton();
@@ -112,7 +116,7 @@ public class MessengerGui extends javax.swing.JFrame {
 
         SignPanel.setLayout(new java.awt.GridLayout(4, 1));
 
-        jPanel4.setBackground(new java.awt.Color(148, 205, 244));
+        jPanel4.setBackground(new java.awt.Color(52, 152, 219));
 
         jLabel3.setBackground(new java.awt.Color(44, 158, 234));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/logo.png"))); // NOI18N
@@ -136,16 +140,24 @@ public class MessengerGui extends javax.swing.JFrame {
 
         SignPanel.add(jPanel4);
 
-        jPanel5.setBackground(new java.awt.Color(148, 205, 244));
+        jPanel5.setBackground(new java.awt.Color(52, 152, 219));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("E-mail : ");
 
+        signInEmailTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                signInEmailTextFieldKeyReleased(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password :");
+
+        emailErrorPanel.setForeground(new java.awt.Color(255, 51, 51));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -155,10 +167,13 @@ public class MessengerGui extends javax.swing.JFrame {
                 .addGap(113, 113, 113)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(signInPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(signInEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(signInEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(emailErrorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,19 +181,22 @@ public class MessengerGui extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(signInEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(signInEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailErrorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(signInPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         SignPanel.add(jPanel5);
 
-        jPanel6.setBackground(new java.awt.Color(148, 205, 244));
+        jPanel6.setBackground(new java.awt.Color(52, 152, 219));
 
-        SignIn.setForeground(new java.awt.Color(102, 153, 255));
+        SignIn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        SignIn.setForeground(new java.awt.Color(52, 152, 219));
         SignIn.setText("Sign In");
         SignIn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SignIn.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +205,8 @@ public class MessengerGui extends javax.swing.JFrame {
             }
         });
 
-        SignUp.setForeground(new java.awt.Color(102, 153, 255));
+        SignUp.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        SignUp.setForeground(new java.awt.Color(52, 152, 219));
         SignUp.setText("Sign Up");
         SignUp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SignUp.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +245,7 @@ public class MessengerGui extends javax.swing.JFrame {
 
         SignPanel.add(jPanel6);
 
-        jPanel7.setBackground(new java.awt.Color(148, 205, 244));
+        jPanel7.setBackground(new java.awt.Color(52, 152, 219));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -366,7 +385,7 @@ public class MessengerGui extends javax.swing.JFrame {
 
         mainPanel.add(FriendListPanel, "FriendList");
 
-        SignUpPanel.setBackground(new java.awt.Color(148, 205, 244));
+        SignUpPanel.setBackground(new java.awt.Color(52, 152, 219));
         SignUpPanel.setPreferredSize(new java.awt.Dimension(390, 700));
 
         UserNameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -418,7 +437,8 @@ public class MessengerGui extends javax.swing.JFrame {
         ConfirmPasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
         ConfirmPasswordLabel.setText(" Confirm Password :");
 
-        registerButton.setForeground(new java.awt.Color(51, 153, 255));
+        registerButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        registerButton.setForeground(new java.awt.Color(52, 152, 219));
         registerButton.setText("Register");
         registerButton.setEnabled(false);
         registerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -545,6 +565,11 @@ public class MessengerGui extends javax.swing.JFrame {
     private void SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInActionPerformed
         
         SignUp.setEnabled(false);
+       if(!Validator.isEmail(signInEmailTextField.getText())){
+       
+          emailErrorPanel.setText("*  Invaild email format");
+       }else{
+        
         if (!signInEmailTextField.getText().equals(null) && !signInPasswordTextField.getPassword().equals(null)) {
             if (clientController.signIn(signInEmailTextField.getText(), new String(signInPasswordTextField.getPassword()))) {
                 
@@ -570,6 +595,7 @@ public class MessengerGui extends javax.swing.JFrame {
                 errorLabel.setText("Login Problem");
             }
         }
+       }
     }//GEN-LAST:event_SignInActionPerformed
 
     private void signupUserNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupUserNameTextFieldActionPerformed
@@ -784,6 +810,10 @@ public class MessengerGui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchTextFieldKeyReleased
 
+    private void signInEmailTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signInEmailTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_signInEmailTextFieldKeyReleased
+
     public void showAddDialog(String usrName) {
         JDialog.setDefaultLookAndFeelDecorated(true);
         result = JOptionPane.showConfirmDialog(FriendListPanel, "Do you want to add  " + usrName + "?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -849,6 +879,7 @@ public class MessengerGui extends javax.swing.JFrame {
     private javax.swing.JButton SignUp;
     private javax.swing.JPanel SignUpPanel;
     private javax.swing.JLabel UserNameLabel;
+    private javax.swing.JLabel emailErrorPanel;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel emailimage;
     private javax.swing.JLabel errorLabel;

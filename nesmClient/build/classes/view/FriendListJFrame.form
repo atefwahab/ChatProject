@@ -70,6 +70,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="db" green="98" red="34" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -109,7 +112,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="f4" green="cd" red="94" type="rgb"/>
+          <Color blue="db" green="98" red="34" type="rgb"/>
         </Property>
       </Properties>
 
@@ -135,7 +138,7 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f4" green="cd" red="94" type="rgb"/>
+              <Color blue="db" green="98" red="34" type="rgb"/>
             </Property>
           </Properties>
 
@@ -448,7 +451,7 @@
     <Container class="javax.swing.JPanel" name="jPanel7">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="f4" green="cd" red="94" type="rgb"/>
+          <Color blue="db" green="98" red="34" type="rgb"/>
         </Property>
       </Properties>
 

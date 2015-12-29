@@ -39,9 +39,9 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
      */
     @Override
     public void recieveState(int state,int friendId) throws RemoteException {
-        System.out.println("client implementation 1");
+        
         clientController.recieveState(state, friendId);
-        System.out.println("client implementation 2");
+     
                 
     }
     

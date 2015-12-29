@@ -25,6 +25,6 @@ public interface ServerInterface extends Remote{
     
     public void unregister(int id)throws RemoteException;
     
-    public void updateState(int state,Vector<Integer> friendsId)throws RemoteException;
+    public void updateState(int state,User friendUser)throws RemoteException;
     public void setMyState(int userId,int state)throws RemoteException;
 }

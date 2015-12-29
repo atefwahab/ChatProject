@@ -148,10 +148,11 @@ public class FriendListJFrame extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(52, 152, 219));
 
-        jPanel1.setBackground(new java.awt.Color(148, 205, 244));
+        jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
-        jPanel2.setBackground(new java.awt.Color(148, 205, 244));
+        jPanel2.setBackground(new java.awt.Color(52, 152, 219));
 
         statejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Avaliable", "Busy", "Away" }));
         statejComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -340,7 +341,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Friend request");
 
-        jPanel7.setBackground(new java.awt.Color(148, 205, 244));
+        jPanel7.setBackground(new java.awt.Color(52, 152, 219));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -446,9 +447,15 @@ public class FriendListJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_friendjListValueChanged
 
     private void friendjListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_friendjListMouseClicked
-      
-    User obj= (User)friendjList.getSelectedValue();
-     clientController.open(obj);
+  
+        if(evt.getClickCount()==2){
+            
+             User obj= (User)friendjList.getSelectedValue();
+             clientController.open(obj);
+        
+        }
+   /* User obj= (User)friendjList.getSelectedValue();
+     clientController.open(obj);*/
         
     
       
