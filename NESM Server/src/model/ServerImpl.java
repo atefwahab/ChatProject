@@ -11,6 +11,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     
     ServerController serverController;
     
+    
     public ServerImpl(ServerController c)throws RemoteException{
     
     serverController=c;

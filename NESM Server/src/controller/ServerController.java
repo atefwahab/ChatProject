@@ -31,12 +31,18 @@ public class ServerController {
     //Online Users
    HashMap<Integer,ClientInterface>onlineUsers=new HashMap<>();
     
+   public static int existedUsers=0;
+   public static int totalUsers=0;
+
     // >-- Constructor -->
     public ServerController() {
         
         //create object from db
         dbConnector =new DbConnector(this);
+        ServerController.totalUsers=dbConnector.getTotalUsers();
         serverGui=new ServerGui(this);
+        //sending status to server gui
+        serverGui.setUsers(ServerController.existedUsers, ServerController.totalUsers);
         try {
             //create object from ServerImplementation which will be sent to client
             serverImpl =new ServerImpl(this);
@@ -57,7 +63,11 @@ public class ServerController {
         
         User obj=dbConnector.signIn(email, Password);
        
+        
         updateState(obj.getState(),obj);
+        
+        
+        
         return obj; 
         
     }
@@ -131,6 +141,11 @@ public class ServerController {
     public void register(int id,ClientInterface client){
         
          onlineUsers.put(id, client);
+        
+         ServerController.existedUsers++;
+        
+        //sending status to server gui
+        serverGui.setUsers(ServerController.existedUsers, ServerController.totalUsers);
     
            
     
@@ -143,6 +158,10 @@ public class ServerController {
     
        
         onlineUsers.remove(id);
+        ServerController.existedUsers--;
+        
+        //sending status to server gui
+        serverGui.setUsers(ServerController.existedUsers, ServerController.totalUsers);
     }
     
     

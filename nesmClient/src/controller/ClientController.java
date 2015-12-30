@@ -14,6 +14,7 @@ import model.User;
 import view.ChatGui;
 import view.FriendListJFrame;
 import view.MessengerGui;
+import view.Notification;
 import view.ServerDown;
 
 public class ClientController {
@@ -210,9 +211,10 @@ public class ClientController {
            
             if(friendUser.getId().equals(friendId))
             {
+               
                 
                friendUser.setState(state);
-               
+               new Notification(friendUser.getUsername(),User.getStringState(friendUser.getState()));
                friendListJframe.paintList();
                
             }

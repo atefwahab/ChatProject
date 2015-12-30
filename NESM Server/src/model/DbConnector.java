@@ -601,6 +601,22 @@ public class DbConnector
         
     
     }
+    
+    public int getTotalUsers(){
+       int count=0;
+        try {
+            
+            ResultSet rs=state.executeQuery("SELECT `user_id`FROM `users`");
+            while(rs.next()){
+                ++count;
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return count; 
+        
+    
+    }
  
 }
 

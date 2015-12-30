@@ -8,8 +8,12 @@ import controller.ServerController;
  * @author Nihal
  */
 
+
 public class ServerGui extends javax.swing.JFrame {
 
+    int onlineUsers;
+    int totalUsers;
+    int offlineUSers;
     /**
      * Creates new form ServerGui
      */
@@ -17,10 +21,23 @@ public class ServerGui extends javax.swing.JFrame {
     
     public ServerGui(ServerController c) {
         initComponents();
-        this.main();
+        
+        this.setVisible(true);
         
         serverController = c ;
     }
+    
+    public void setUsers(int onUsers,int allUsers){
+    
+        onlineUsers=onUsers;
+        totalUsers=allUsers;
+        offlineUSers=totalUsers- onlineUsers;
+        onlineusersjLabel.setText(String.valueOf(onlineUsers));
+        offlineusersjLabel.setText(String.valueOf(offlineUSers));
+        totalusersjLabel.setText(String.valueOf(totalUsers));
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
