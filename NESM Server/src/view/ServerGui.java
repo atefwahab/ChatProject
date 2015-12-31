@@ -2,6 +2,7 @@
 package view;
 
 import controller.ServerController;
+import org.jfree.ui.RefineryUtilities;
 
 /**
  *
@@ -25,6 +26,8 @@ public class ServerGui extends javax.swing.JFrame {
         this.setVisible(true);
         
         serverController = c ;
+        
+        
     }
     
     public void setUsers(int onUsers,int allUsers){
@@ -181,6 +184,11 @@ public class ServerGui extends javax.swing.JFrame {
 
         statisticsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/statistics.png"))); // NOI18N
         statisticsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        statisticsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statisticsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -309,6 +317,23 @@ public class ServerGui extends javax.swing.JFrame {
         serverController.sendAnnouncement(inputTextField.getText());
         inputTextField.setText("");
     }//GEN-LAST:event_sendAnnouncementButtonActionPerformed
+
+    private void statisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticsButtonActionPerformed
+        // TODO add your handling code here:
+        /*
+        safaa code
+        */
+        PieChartDemo1 demo = new PieChartDemo1("Pie Chart Demo 1",5,offlineUSers);
+        demo.pack();
+        demo.add(jLabel2);
+        
+        RefineryUtilities.centerFrameOnScreen(demo);
+        demo.setVisible(true);
+        
+        /*
+            end of 
+        */
+    }//GEN-LAST:event_statisticsButtonActionPerformed
 
     /**
      * @param args the command line arguments
