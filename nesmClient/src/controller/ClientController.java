@@ -15,6 +15,7 @@ import view.ChatGui;
 import view.FriendListJFrame;
 import view.MessengerGui;
 import view.Notification;
+import view.PlayaudioFile;
 import view.ServerDown;
 
 public class ClientController {
@@ -212,10 +213,32 @@ public class ClientController {
             if(friendUser.getId().equals(friendId))
             {
                
-                
+               
                friendUser.setState(state);
-               new Notification(friendUser.getUsername(),User.getStringState(friendUser.getState()));
+               String imageName="";
+               switch(state){
+                   case User.Available:
+                       imageName="available";
+                       break;
+                    case User.Busy:
+                       imageName="busy";
+                       break;
+                       
+                     case User.Away:
+                       imageName="away";
+                       break;
+                       
+                     case User.Offline:
+                       imageName="offline";
+                       break;
+               }
+               new Notification(friendUser.getUsername(),User.getStringState(friendUser.getState()),imageName,"src\\sounds\\userState.wav");
+               
                friendListJframe.paintList();
+               if(open(friendUser)!=null){
+                   openWindows.get(friendId).updateState(User.getStringState(friendUser.getState()));
+               }
+               
                
             }
         }
@@ -235,6 +258,25 @@ public class ClientController {
             ex.printStackTrace();
         }
    }
+   
+   
+     public boolean addFriendRequest(int sendId,String receiverEmail)
+   {
+       boolean res ;
+        try 
+        {
+           res = serverRef.addFriendRequest(sendId, receiverEmail);
+             return res ;
+        } 
+        catch (RemoteException ex)
+        {
+            ex.printStackTrace();
+             return false;
+        }
+        
+   }
+   
+   
    /**
     * Set me offline
     */

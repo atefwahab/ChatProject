@@ -11,6 +11,7 @@ import java.awt.event.WindowListener;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import model.User;
+import javax.swing.*;
 
 /**
  *
@@ -126,7 +127,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        friendRequestTabbedPane = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         friendjList = new javax.swing.JList<>();
@@ -141,6 +142,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         Options = new javax.swing.JMenu();
         logOutMenuItem = new javax.swing.JMenuItem();
@@ -161,15 +163,20 @@ public class FriendListJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon("E:\\ITI\\Java\\Java Project\\nesmClient\\src\\view\\Add .png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Add .png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon("E:\\ITI\\Java\\Java Project\\nesmClient\\src\\view\\groupChat.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/groupChat.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("User Name :");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("E:\\ITI\\Java\\Java Project\\nesmClient\\src\\view\\user.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/user.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("E-mail :");
@@ -294,7 +301,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Friend List", jPanel5);
+        friendRequestTabbedPane.addTab("Friend List", jPanel5);
 
         requestjList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -321,25 +328,25 @@ public class FriendListJFrame extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("friend request", jPanel6);
+        friendRequestTabbedPane.addTab("friend request", jPanel6);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1)
+            .addComponent(friendRequestTabbedPane)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(friendRequestTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.getAccessibleContext().setAccessibleName("Friend request");
+        friendRequestTabbedPane.getAccessibleContext().setAccessibleName("Friend request");
 
         jPanel7.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -389,6 +396,19 @@ public class FriendListJFrame extends javax.swing.JFrame {
 
         jMenuItem5.setText("OffLine");
         jMenu1.add(jMenuItem5);
+
+        jMenuItem7.setText("Add Friend");
+        jMenuItem7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem7MouseClicked(evt);
+            }
+        });
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
         jMenuItem6.setText("Group Chat");
         jMenu1.add(jMenuItem6);
@@ -500,6 +520,45 @@ public class FriendListJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_logOutMenuItemActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     
+        boolean validateRes , requestRes;
+        String  userName ;
+        String email =JOptionPane.showInputDialog(this,"Please enter The email .","Add Friend",JOptionPane.PLAIN_MESSAGE);
+        
+        validateRes = model.Validator.isEmail(email);
+        
+       if(validateRes == true)
+       {
+          userName = clientController.searchEmail(email);
+          
+         requestRes = clientController.addFriendRequest(user.getId(), email);
+          
+        /* if(requestRes == true)
+         {
+             
+         }
+         else
+         {
+             
+         }
+         */
+       }
+       else
+       {
+           JOptionPane.showConfirmDialog(this, "The Email is wrong .");
+       }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        
+      
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem7MouseClicked
+      
+    }//GEN-LAST:event_jMenuItem7MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -537,6 +596,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Options;
+    private javax.swing.JTabbedPane friendRequestTabbedPane;
     private javax.swing.JList<Object> friendjList;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -552,6 +612,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -563,7 +624,6 @@ public class FriendListJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuItem logOutMenuItem;
     private javax.swing.JLabel mainEmailLabel;
     private javax.swing.JLabel mainUsernameLabel;

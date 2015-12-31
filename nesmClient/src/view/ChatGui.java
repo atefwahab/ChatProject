@@ -6,8 +6,11 @@
 package view;
 
 import controller.ClientController;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.User;
 
 /**
@@ -23,7 +26,7 @@ public class ChatGui extends javax.swing.JFrame {
      */
     public ChatGui(User user,ClientController c) {
         initComponents();
-        main();
+        
         this.user=user;
         this.setTitle(user.getUsername());
         clientUserNameLabel.setText(user.getUsername());
@@ -81,8 +84,56 @@ public class ChatGui extends javax.swing.JFrame {
      */
     public void recieve(String msg)
     {
+        if(msg.equals("<nudge>")){
+        
+                class Nudge implements Runnable{
+                
+                     Thread t = new Thread(this);
+
+                    public Nudge() {
+                
+                         t.start();
+                     }
+                
+                
+                @Override
+                public void run() {
+                         try {
+                             new PlayaudioFile("src\\sounds\\nudge.wav");
+                             int x;
+                             int y;
+                              x=ChatGui.this.getLocation().x;
+                               y=ChatGui.this.getLocation().y;
+                             for (int i = 0; i < 20; i++) {
+                                  
+                                 
+                                ChatGui.this.setLocation(x-100,y);
+                                 
+                                 Thread.sleep(50);
+                                 ChatGui.this.setLocation(x+100,y);
+                              
+                                
+                             }
+                             ChatGui.this.setLocation(x, y);
+                         } catch (InterruptedException ex) {
+                            
+                         }
+                
+                }
+        
+                
+            }
+            
+               new Nudge();
+            }
+            
+        
+        else{
         String screen = clientOutputTextArea.getText();
         clientOutputTextArea.setText(screen+"  "+user.getUsername()+" : "+msg+ "\n");
+       
+        new PlayaudioFile("src\\sounds\\new_message.wav");
+        }
     }
 
     /**
@@ -106,10 +157,16 @@ public class ChatGui extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         clientInputTextField = new javax.swing.JTextField();
         clientStateLabel = new javax.swing.JLabel();
+        nudgeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel1KeyPressed(evt);
+            }
+        });
 
         clientOutputTextArea.setEditable(false);
         clientOutputTextArea.setColumns(20);
@@ -137,10 +194,22 @@ public class ChatGui extends javax.swing.JFrame {
 
         fileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/file.png"))); // NOI18N
 
+        clientInputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                clientInputTextFieldKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(clientInputTextField);
 
         clientStateLabel.setForeground(new java.awt.Color(255, 255, 255));
         clientStateLabel.setText("available");
+
+        nudgeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/nudge.png"))); // NOI18N
+        nudgeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nudgeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,6 +233,8 @@ public class ChatGui extends javax.swing.JFrame {
                                 .addComponent(photoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(fileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nudgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jSeparator3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -192,7 +263,8 @@ public class ChatGui extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(photoButton)
-                                    .addComponent(fileButton))
+                                    .addComponent(fileButton)
+                                    .addComponent(nudgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(47, 47, 47))
@@ -221,43 +293,38 @@ public class ChatGui extends javax.swing.JFrame {
         String screen = clientOutputTextArea.getText();
         String msg = clientInputTextField.getText();
         clientOutputTextArea.setText(screen+"  Me : "+msg+ "\n");
-        clientController.sendMessage(user.getId() , msg);
         clientInputTextField.setText(" ");
+       clientController.sendMessage(user.getId() , msg);
+        
     }//GEN-LAST:event_sendButtonActionPerformed
 
     private void photoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_photoButtonActionPerformed
 
-    
-    /**
-     * @param args the command line arguments
-     */
-    public  void main() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChatGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChatGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChatGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChatGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
+       
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+        sendButton.doClick();
+    }//GEN-LAST:event_jPanel1KeyPressed
+
+    private void clientInputTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clientInputTextFieldKeyReleased
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER || evt.getKeyCode()==KeyEvent.VK_ACCEPT){
+            sendButton.doClick();
         }
-        //</editor-fold>
-        
-    }
+    }//GEN-LAST:event_clientInputTextFieldKeyReleased
+
+    private void nudgeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nudgeButtonActionPerformed
+       
+        clientController.sendMessage(user.getId() ,"<nudge>");
+    }//GEN-LAST:event_nudgeButtonActionPerformed
+public void updateState(String State){
+
+    clientStateLabel.setText(State);
+}
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField clientInputTextField;
@@ -270,6 +337,7 @@ public class ChatGui extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton nudgeButton;
     private javax.swing.JButton photoButton;
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables

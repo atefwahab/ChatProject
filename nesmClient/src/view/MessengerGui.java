@@ -8,6 +8,7 @@ package view;
 
 import controller.ClientController;
 import java.awt.CardLayout;
+import java.awt.event.KeyEvent;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
@@ -114,6 +115,11 @@ public class MessengerGui extends javax.swing.JFrame {
         mainPanel.setBackground(new java.awt.Color(102, 0, 153));
         mainPanel.setLayout(new java.awt.CardLayout());
 
+        SignPanel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SignPanelKeyPressed(evt);
+            }
+        });
         SignPanel.setLayout(new java.awt.GridLayout(4, 1));
 
         jPanel4.setBackground(new java.awt.Color(52, 152, 219));
@@ -813,6 +819,12 @@ public class MessengerGui extends javax.swing.JFrame {
     private void signInEmailTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signInEmailTextFieldKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_signInEmailTextFieldKeyReleased
+
+    private void SignPanelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SignPanelKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        SignIn.doClick();
+        }
+    }//GEN-LAST:event_SignPanelKeyPressed
 
     public void showAddDialog(String usrName) {
         JDialog.setDefaultLookAndFeelDecorated(true);

@@ -177,7 +177,7 @@ public class ServerController {
         try {
             receiverClient.receive(message, senderId);
         } catch (RemoteException ex) {
-           ex.printStackTrace();
+           
         }
          
      }

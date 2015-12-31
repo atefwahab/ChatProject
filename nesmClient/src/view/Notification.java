@@ -21,11 +21,14 @@ public class Notification extends javax.swing.JFrame implements Runnable{
     public String username;
     public String state;
     Point p=new Point();
-    Thread thread; 
+    Thread thread;
+    String imageName;
+    String soundName;
+    
     /**
      * Creates new form Notification
      */
-    public Notification(String username,String status) {
+    public Notification(String username,String status,String imageName,String soundName) {
         this.username=username;
         this.state=status;
         thread=new Thread(this);
@@ -35,7 +38,10 @@ public class Notification extends javax.swing.JFrame implements Runnable{
         this.setLocation(p);
         this.setVisible(true);
         nameLabel.setText(this.username+" is "+this.state);
-        imageIcon.setIcon(new ImageIcon("offline.png"));
+        
+        this.imageName=imageName;
+        this.soundName=soundName;
+        imageIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/"+imageName+".png")));
         thread.start();
         
     }
@@ -54,17 +60,20 @@ public class Notification extends javax.swing.JFrame implements Runnable{
         nameLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setAlwaysOnTop(true);
+        setBackground(new java.awt.Color(249, 249, 252));
         setUndecorated(true);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(249, 249, 252));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.blue, new java.awt.Color(153, 153, 255), java.awt.Color.blue, java.awt.Color.blue));
 
-        imageIcon.setBackground(new java.awt.Color(255, 255, 255));
+        imageIcon.setBackground(new java.awt.Color(221, 240, 255));
 
-        nameLabel.setBackground(new java.awt.Color(255, 255, 255));
+        nameLabel.setBackground(new java.awt.Color(221, 240, 255));
         nameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         nameLabel.setForeground(new java.awt.Color(0, 51, 255));
+        nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nameLabel.setText("Mohamed Atef is");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -81,13 +90,12 @@ public class Notification extends javax.swing.JFrame implements Runnable{
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 22, Short.MAX_VALUE)
-                .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(imageIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 16, Short.MAX_VALUE)
+                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imageIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,6 +123,7 @@ public class Notification extends javax.swing.JFrame implements Runnable{
     @Override
     public void run() {
         try {
+            
             for (int i = 0; i < 10; i++) {
                 Thread.sleep(50);
                
@@ -123,6 +132,7 @@ public class Notification extends javax.swing.JFrame implements Runnable{
                 
                 Notification.this.setLocation(p);
             }
+            new PlayaudioFile(soundName);
           
             Thread.sleep(3500);
             Notification.this.dispose();
