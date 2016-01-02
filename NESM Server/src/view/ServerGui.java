@@ -322,7 +322,7 @@ public class ServerGui extends javax.swing.JFrame {
         // TODO add your handling code here:
         /*
         safaa code
-        */
+        
         PieChartDemo1 demo = new PieChartDemo1("Pie Chart Demo 1",5,offlineUSers);
         demo.pack();
         demo.add(jLabel2);
@@ -330,8 +330,8 @@ public class ServerGui extends javax.swing.JFrame {
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);
         
-        /*
-            end of 
+        
+            
         */
     }//GEN-LAST:event_statisticsButtonActionPerformed
 

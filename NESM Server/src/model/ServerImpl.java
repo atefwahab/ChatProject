@@ -95,6 +95,13 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
         serverController.setMyState(userId, state);
     }
 
+    @Override
+    public void sendGroupMessage(User sender, Vector<User> friends, String message,String name) throws RemoteException {
+        
+        serverController.sendGroupMessage(sender, friends, message,name);
+        
+    }
+
   
     
 }

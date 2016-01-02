@@ -99,7 +99,11 @@ public class ChatGui extends javax.swing.JFrame {
                 @Override
                 public void run() {
                          try {
-                             new PlayaudioFile("src\\sounds\\nudge.wav");
+                         //    new PlayaudioFile("src\\sounds\\nudge.wav");
+                         
+                                String url = getClass().getResource("/sounds/nudge.wav").toString();
+                                System.out.println(url);
+                               new PlayaudioFile(url);
                              int x;
                              int y;
                               x=ChatGui.this.getLocation().x;
@@ -289,11 +293,14 @@ public class ChatGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        
+        String msg;
+        synchronized(this){
         String screen = clientOutputTextArea.getText();
-        String msg = clientInputTextField.getText();
+        msg = clientInputTextField.getText();
         clientOutputTextArea.setText(screen+"  Me : "+msg+ "\n");
         clientInputTextField.setText(" ");
+        }
+      
        clientController.sendMessage(user.getId() , msg);
         
     }//GEN-LAST:event_sendButtonActionPerformed

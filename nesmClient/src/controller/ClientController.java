@@ -11,11 +11,13 @@ import java.util.logging.Logger;
 import model.ClientImpl;
 import model.ServerInterface;
 import model.User;
+import view.ChatGroupGui;
 import view.ChatGui;
 import view.FriendListJFrame;
 import view.MessengerGui;
 import view.Notification;
 import view.PlayaudioFile;
+import view.SelectedChatGroupJFrame;
 import view.ServerDown;
 
 public class ClientController {
@@ -27,11 +29,15 @@ public class ClientController {
     FriendListJFrame friendListJframe;
     //HashMap represent open Window 
     HashMap<Integer,ChatGui> openWindows = new HashMap<>();
+    HashMap<String,ChatGroupGui> openChatGroupWindows = new HashMap<>();
     ClientImpl clientImpl;
     Vector<User>friends;
+    
+    
 
 // >--Constructor--->
     ClientController() {
+       
         try {
             this.clientImpl = new ClientImpl(this);
         } catch (RemoteException ex) {
@@ -113,7 +119,9 @@ public class ClientController {
         }
     }
     /**
+     * @author atef
      * this method is used to send the message to server .
+     * 
      * @param senderId
      * @param friendId
      * @param message 
@@ -130,6 +138,7 @@ public class ClientController {
      * this method is used to receive a message from server and send it to the client 
      * @param msg
      * @param friendId 
+     * 
      */
     public void receive(String msg, int friendId)
     {
@@ -149,7 +158,7 @@ public class ClientController {
     
     
     /**
-     * 
+     * this method is used to check if the client window is open or not.
      * @param friendId
      * @return 
      */
@@ -177,6 +186,30 @@ public class ClientController {
      public void close (int friendId)
      {
            openWindows.remove(friendId);
+     }
+     
+     /**
+      * @author Atef
+      * this method used to check if there is an chat group windows already opened or open a new one.
+      * @param chatGroupName
+      * @return chat group window
+      */
+     public ChatGroupGui openChatGroup(String chatGroupName,Vector<User> friendUsers){
+     
+        ChatGroupGui chatgroup;
+        
+        if(openChatGroupWindows.containsKey(chatGroupName)){
+            
+            chatgroup=openChatGroupWindows.get(chatGroupName);
+            System.out.println("it is found");
+            
+        }else{
+        
+            chatgroup=new ChatGroupGui(chatGroupName, friendUsers, this);
+            openChatGroupWindows.put(chatGroupName, chatgroup);
+        }
+        
+        return chatgroup;
      }
 
     
@@ -235,8 +268,11 @@ public class ClientController {
                new Notification(friendUser.getUsername(),User.getStringState(friendUser.getState()),imageName,"src\\sounds\\userState.wav");
                
                friendListJframe.paintList();
-               if(open(friendUser)!=null){
-                   openWindows.get(friendId).updateState(User.getStringState(friendUser.getState()));
+               //To Update status in chat windows if it is open
+               if(openWindows.containsKey(friendId)){
+               
+                    openWindows.get(friendId).updateState(User.getStringState(friendUser.getState()));
+               
                }
                
                
@@ -306,6 +342,64 @@ public class ClientController {
         }
    }
     
+   
+   public void selectChatGroup(){
+   
+       new SelectedChatGroupJFrame(friends,this);
+   
+   }
+   
+   /**
+    * this method used to start chat for the first time.
+    * @param name
+    * @param participants 
+    */
+   public void startChatGroup(String name,Vector<User> participants){
+   
+       participants.add(user);
+       for (int i = 0; i <participants.size(); i++) {
+           System.out.println(participants.get(i).getUsername());
+       }
+      
+       System.out.println("start chat 1");
+       sendGroupMessage(user.getUsername()+" has started a group chat",name,participants);
+       System.out.println("start chat 2");
+   
+   }
+   /**
+    * send a message to a group.
+    * @param message
+    * @param friendIds 
+    */
+   public void sendGroupMessage(String message,String name,Vector<User> participants){
+   
+        try {
+            System.out.println("send group 1");
+            serverRef.sendGroupMessage(user, participants, message,name);
+            System.out.println("send group 2");
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+   }
+   
+   /**
+    * Receive a group message.
+    * @param msg
+    * @param name
+    * @param participants 
+    */
+   public void receiveGroupChat(User sender,String msg,String name ,Vector<User> participants){
+   
+       for(int i=0;i<participants.size();i++){
+       
+           System.out.println("ana gwa el recieve aho w ana esmy "+participants.get(i).getUsername());
+       }
+       ChatGroupGui chatGroupGui=openChatGroup(name, participants);
+       chatGroupGui.receiverMessage(sender, msg);
+        
+   
+   
+   }
     
     /*
         Main method 

@@ -7,6 +7,7 @@ package model;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Vector;
 
 
 public interface ClientInterface extends Remote{
@@ -18,6 +19,13 @@ public interface ClientInterface extends Remote{
      */
     void receive(String msg,Integer friendId)throws RemoteException;
     
+    /**
+     * this method used by server to send a client message from group chat
+     * @param msg
+     * @param friendIds
+     * @throws RemoteException 
+     */
+     void receiveGroupChat(User sender,String msg,String name,Vector<User> friendIds)throws RemoteException;
     /**
      * this method used by Server to broadcast an announcement
      * @param msg

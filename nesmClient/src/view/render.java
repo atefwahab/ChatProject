@@ -4,9 +4,13 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.plaf.ComponentUI;
 import model.User;
 
 
@@ -18,6 +22,7 @@ public class render extends DefaultListCellRenderer implements ListCellRenderer<
        User user=(User)value;
        setText("<html> <h3 style=\"font-weight:bold; padding-left:5px; color:rgb(148,205,244);\">"+user.getUsername()+"</h3><h5 style=\"padding-left:8px; color:grey;\">"+User.getStringState(user.getState())+"</h5></html>");
        //setText(user.getState());
+       // setUI((ComponentUI.createUI(new JButton("ok"))));
        
        ImageIcon available = new ImageIcon(getClass().getResource("available.png"));
        ImageIcon busy = new ImageIcon(getClass().getResource("busy.png"));
