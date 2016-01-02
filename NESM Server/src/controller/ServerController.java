@@ -1,6 +1,7 @@
 
 package controller;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -10,10 +11,18 @@ import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import model.ClientInterface;
 import model.DbConnector;
 import model.ServerImpl;
 import model.User;
+import project.ChatType;
+import project.MessageType;
+import project.ObjectFactory;
 import view.ServerGui;
 
 /**
@@ -33,6 +42,15 @@ public class ServerController {
     
    public static int existedUsers=0;
    public static int totalUsers=0;
+   
+   //Xml variables 
+   //1-Create JAXB OBJECT
+    JAXBContext context;
+    
+   
+    
+      //2-Marshaller
+    Marshaller marsh;
 
     // >-- Constructor -->
     public ServerController() {
@@ -54,6 +72,21 @@ public class ServerController {
             ex.printStackTrace();
         }
         
+        
+        try {
+            //1)get JAXBContext
+            context=JAXBContext.newInstance("project");
+            
+            //2)create Marshal to write
+            marsh=context.createMarshaller();
+            
+            //3) to read it well
+             marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,Boolean.TRUE);
+            
+        } catch (JAXBException ex) {
+            ex.printStackTrace();
+        }
+        
     }
 
 
@@ -63,9 +96,11 @@ public class ServerController {
         
         User obj=dbConnector.signIn(email, Password);
        
-        
-        updateState(obj.getState(),obj);
-        
+        if(obj!=null){
+            
+            updateState(obj.getState(),obj);
+            updateFriendRequest(dbConnector.getUserId(email));
+        }
         
         
         return obj; 
@@ -120,7 +155,26 @@ public class ServerController {
      */
     public boolean addFriendRequest(int sendId,String receiverEmail){
     
-        return dbConnector.addFriendRequest(sendId, receiverEmail);
+        boolean flag= dbConnector.addFriendRequest(sendId, receiverEmail);
+        if(flag){
+            updateFriendRequest(dbConnector.getUserId(receiverEmail));
+        }
+            
+        return flag;
+    }
+    
+    public void updateFriendRequest(int userID){
+    
+      if(onlineUsers.containsKey(userID)){
+          
+          try {
+              onlineUsers.get(userID).updateFriendRequest(dbConnector.getFriendsRequest(userID));
+          } catch (RemoteException ex) {
+              ex.printStackTrace();
+          }
+      
+      }
+        
     }
     
     
@@ -174,6 +228,12 @@ public class ServerController {
      public void sendMessage(int senderId,int friendId,String message){
      
          ClientInterface receiverClient=onlineUsers.get(friendId);
+         // geting the name of file
+         String fileName=dbConnector.getFileID(senderId, friendId);
+         File file = new File(fileName+".xml");
+         //call xml method 
+         writeXml(file,message ,dbConnector.getUsername(senderId), dbConnector.getUsername(friendId));
+         
         try {
             receiverClient.receive(message, senderId);
         } catch (RemoteException ex) {
@@ -181,6 +241,44 @@ public class ServerController {
         }
          
      }
+     
+       /**
+     * This method used by the client to send file for a another client.
+     * @param senderId
+     * @param friendId
+     * @param file
+     * @param fileName 
+     */
+      public void sendFile(int senderId,int friendId,byte[] file,String fileName){
+     
+         ClientInterface receiverClient=onlineUsers.get(friendId);
+        try {
+            receiverClient.receiveFile(file, senderId,fileName);
+        } catch (RemoteException ex) {
+           ex.printStackTrace();
+        }
+         
+     }
+      
+      /**
+     * This method used by the client to send file for a another client.
+     * @param senderId
+     * @param friendId
+     * @param image
+     * @param imageName
+     */
+      public void sendImage(int senderId,int friendId,byte[] image,String imageName){
+     
+         ClientInterface receiverClient=onlineUsers.get(friendId);
+        try {
+            receiverClient.receiveImage(image, senderId,imageName);
+        } catch (RemoteException ex) {
+           ex.printStackTrace();
+        }
+         
+     } 
+      
+   
      
      
      /**
@@ -268,7 +366,60 @@ public class ServerController {
            }    
          
     }
-     
+       
+       /**
+        * Xml methods .
+        */
+       
+        
+    public void writeXml(File file,String msg,String userName,String friendName){
+    
+    
+        ObjectFactory factory=new ObjectFactory();
+        ChatType chatType = factory.createChatType();
+        MessageType messageType=factory.createMessageType();
+        messageType.setBody(msg);
+        messageType.setFrom(userName);
+        messageType.setTo(friendName);
+       chatType.getMessage().add(messageType);
+       JAXBElement<ChatType> JAXPchat=factory.createChat(chatType);
+       
+        try {
+            marsh.marshal(JAXPchat, file);
+        } catch (JAXBException ex) {
+           ex.printStackTrace();
+        }
+    
+    }
+
+    /**
+     * 
+     */
+    public void getChat(){}
+  
+    /**
+     * return friends requests
+     * @param userID
+     * @return 
+     */ 
+    public Vector<User> getFriendsRequest(int userID){
+    
+        return dbConnector.getFriendsRequest(userID);
+    }
+    
+    /**
+     * Remove friend request from db.
+     * @param senderId
+     * @param receiverID
+     * @return 
+     */
+    public boolean removeFriendRequest(int senderId,int receiverID){
+    
+        return dbConnector.removeFriendRequest(senderId, receiverID);
+    }
+    
+ 
+ 
      
      /**
       * Main method

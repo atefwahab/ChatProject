@@ -54,5 +54,20 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
     }
     
     
+       @Override
+    public void receiveFile(byte[] file, Integer friendId,String fileName) throws RemoteException {
+        clientController.receiveFile(file,friendId,fileName);
+    }
+     @Override
+    public void receiveImage(byte[] image, Integer friendId,String imageName) throws RemoteException {
+        clientController.receiveImage(image,friendId,imageName);
+    }
+
+    @Override
+    public void updateFriendRequest(Vector<User> friendRequests) throws RemoteException {
+        clientController.updateFriendRequest(friendRequests);
+    }
+    
+    
     
 }

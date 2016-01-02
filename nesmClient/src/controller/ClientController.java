@@ -67,6 +67,7 @@ public class ClientController {
                 flag=true;
                 friendListJframe=new FriendListJFrame(this, user);
                 
+                
                 serverRef.register(user.getId(),clientImpl);
                 
                 
@@ -397,6 +398,84 @@ public class ClientController {
    
    
    }
+    /**
+      * this method is used to send file to server .
+      * @param friendId
+      * @param file
+      * @param fileName 
+      */
+     public void sendFile(int friendId,byte[] file,String fileName)
+     {
+        try {
+            serverRef.sendFile(user.getId(), friendId,file,fileName);
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+     }
+     /**
+      * this method is used to send image to server .
+      * @param friendId
+      * @param image
+      * @param imageName 
+      */
+     public void sendImage(int friendId,byte[] image,String imageName)
+     {
+        try {
+            serverRef.sendImage(user.getId(), friendId,image,imageName);
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+     }
+     
+       /**
+     * receive file  
+     * @param file
+     * @param friendId 
+     */
+    public void receiveFile(byte[] file, int friendId,String fileName)
+    {
+        ChatGui chatGui= null;
+     
+        for( User friendUser : user.getFriends())
+        {
+           
+            if(friendUser.getId()== friendId)
+            {
+                
+                chatGui = this.open(friendUser);
+            }
+        }
+        chatGui.recieveFile(file,fileName);
+    }
+    
+    /**
+     * 
+     * @param image
+     * @param friendId
+     * @param imageName 
+     */
+     public void receiveImage(byte[] image, int friendId,String imageName)
+    {
+        ChatGui chatGui= null;
+     
+        for( User friendUser : user.getFriends())
+        {
+           
+            if(friendUser.getId()== friendId)
+            {
+                
+                chatGui = this.open(friendUser);
+            }
+        }
+        chatGui.recieveImage(image,imageName);
+    }
+  
+     
+      public void updateFriendRequest(Vector<User> friendRequests){
+      
+              friendListJframe.setRequestFriend(friendRequests);
+      
+      }
     
     /*
         Main method 

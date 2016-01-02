@@ -12,7 +12,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.logging.Level;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.User;
 
 /**
@@ -147,6 +153,69 @@ public class ChatGui extends javax.swing.JFrame {
         new PlayaudioFile("src\\sounds\\new_message.wav");
         }
     }
+    
+     public void recieveFile(byte[] file, String fileName) {
+        // String screen = clientOutputTextArea.getText();
+        clientOutputTextArea.setText(user.getUsername() + " : send " + fileName + "\n");
+        int option = JOptionPane.showConfirmDialog(this, user.getUsername() + " send " + fileName + "\n" + "Do you want to save this file?");
+        switch (option) {
+            case 0:
+                JFileChooser fC = new JFileChooser();
+                fC.setSelectedFile(new File(fileName));
+                if (fC.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    String path = fC.getSelectedFile().getPath();
+                    try {
+
+                        FileOutputStream fos = new FileOutputStream(path);
+                        fos.flush();
+
+                        fos.write(file);
+                        fos.close();
+                    } catch (Exception e) {
+                    }
+
+                }
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+
+        }
+
+    }
+
+    public void recieveImage(byte[] image, String imageName) {
+        // String screen = clientOutputTextArea.getText();
+        clientOutputTextArea.setText(user.getUsername() + " : send " + imageName + "\n");
+        int option = JOptionPane.showConfirmDialog(this, user.getUsername() + " send " + imageName + "\n" + "Do you want to save this file?");
+        switch (option) {
+            case 0:
+                JFileChooser fC = new JFileChooser();
+                fC.setSelectedFile(new File(imageName));
+                if (fC.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    String path = fC.getSelectedFile().getPath();
+                    try {
+
+                        FileOutputStream fos = new FileOutputStream(path);
+                        fos.flush();
+
+                        fos.write(image);
+                        fos.close();
+                    } catch (Exception e) {
+                    }
+
+                }
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+
+        }
+
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,6 +274,11 @@ public class ChatGui extends javax.swing.JFrame {
         });
 
         fileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/file.png"))); // NOI18N
+        fileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileButtonActionPerformed(evt);
+            }
+        });
 
         clientInputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -314,7 +388,27 @@ public class ChatGui extends javax.swing.JFrame {
     }//GEN-LAST:event_sendButtonActionPerformed
 
     private void photoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoButtonActionPerformed
-        // TODO add your handling code here:
+          JFileChooser fM = new JFileChooser();
+        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("images ", "jpg", "png", "gif", "jpeg");
+        fM.setFileFilter(imageFilter);
+        if (fM.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+
+            String path = fM.getSelectedFile().getPath();
+            String name = fM.getSelectedFile().getName();
+
+            System.out.println(path);
+            try {
+
+                FileInputStream fi = new FileInputStream(path);
+                int size = fi.available();
+                byte[] b = new byte[size];
+                fi.read(b);
+                clientController.sendImage(user.getId(), b, name);
+                fi.close();
+            } catch (Exception e) {
+
+            }
+        }
     }//GEN-LAST:event_photoButtonActionPerformed
 
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
@@ -334,6 +428,30 @@ public class ChatGui extends javax.swing.JFrame {
        
         clientController.sendMessage(user.getId() ,"<nudge>");
     }//GEN-LAST:event_nudgeButtonActionPerformed
+
+    private void fileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileButtonActionPerformed
+        JFileChooser fC = new JFileChooser();
+        FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("files ", "txt", "pdf","ZIP","RAR","mp4","mp3","pptx","docx");
+        fC.setFileFilter(txtFilter);
+        if (fC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+
+            String path = fC.getSelectedFile().getPath();
+            String name = fC.getSelectedFile().getName();
+
+            System.out.println(path);
+            try {
+
+                FileInputStream fis = new FileInputStream(path);
+                int size = fis.available();
+                byte[] b = new byte[size];
+                fis.read(b);
+                clientController.sendFile(user.getId(), b, name);
+                fis.close();
+            } catch (Exception e) {
+
+            }
+        }
+    }//GEN-LAST:event_fileButtonActionPerformed
 public void updateState(String State){
 
     clientStateLabel.setText(State);

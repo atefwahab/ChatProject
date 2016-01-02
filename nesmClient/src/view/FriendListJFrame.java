@@ -23,7 +23,22 @@ public class FriendListJFrame extends javax.swing.JFrame {
     ClientController clientController;
     User user;
     DefaultListModel dm=new DefaultListModel();
+    DefaultListModel rdm=new DefaultListModel();
+    
     Vector<User> friend;
+    Vector<User> requestFriend=new Vector<>();
+
+    public Vector<User> getRequestFriend() {
+        return requestFriend;
+    }
+    
+    //Set the friend request and paint it
+    public void setRequestFriend(Vector<User> requestFriend) {
+        this.requestFriend = requestFriend;
+        requestFriendList();
+        
+    }
+    
     public javax.swing.JList<User> friendjList1=new javax.swing.JList<>();
     
     public void paintList()
@@ -39,6 +54,19 @@ public class FriendListJFrame extends javax.swing.JFrame {
      
         friendjList.setModel(dm);
     }
+    public void requestFriendList()
+    {
+        rdm.clear();
+        for(int i=0;i<requestFriend.size();i++)
+        {
+            
+            rdm.addElement(requestFriend.elementAt(i));
+        }
+       
+        requestjList.setCellRenderer(new RequestRender());
+     
+        requestjList.setModel(rdm);
+    }
     /**
      * Creates new form FriendListJFrame
      */
@@ -51,11 +79,12 @@ public class FriendListJFrame extends javax.swing.JFrame {
         initComponents();
         
         friend=user.getFriends();
-        
+       //requestFriend=user.getRequestfriend();
         mainUsernameLabel.setText(user.getUsername());
         mainEmailLabel.setText(user.getEmail());
         this.setTitle("Hi Messenger");
         paintList();
+         requestFriendList();
         
         main();
          
@@ -278,11 +307,6 @@ public class FriendListJFrame extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        friendjList.setModel(new javax.swing.AbstractListModel<Object>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         friendjList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 friendjListMouseClicked(evt);
@@ -308,11 +332,6 @@ public class FriendListJFrame extends javax.swing.JFrame {
 
         friendRequestTabbedPane.addTab("Friend List", jPanel5);
 
-        requestjList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         requestjList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 requestjListMouseClicked(evt);
@@ -637,7 +656,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem logOutMenuItem;
     private javax.swing.JLabel mainEmailLabel;
     private javax.swing.JLabel mainUsernameLabel;
-    private javax.swing.JList<String> requestjList;
+    private javax.swing.JList<Object> requestjList;
     private javax.swing.JComboBox<String> statejComboBox;
     // End of variables declaration//GEN-END:variables
 }

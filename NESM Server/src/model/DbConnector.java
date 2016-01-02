@@ -562,6 +562,15 @@ public class DbConnector
             if(result.next()){
             
                 fileId=result.getString(1);
+            }else{
+            
+                query="SELECT `file_id` FROM `friends` WHERE `user_id`="+friendId+" AND `friend_id`="+userId;
+            
+                result=state.executeQuery(query);
+                while (result.next()) {                    
+                    
+                    fileId=result.getString(1);
+                }
             }
             
         } catch (SQLException ex) {

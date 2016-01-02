@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ChatType">
+		<xs:sequence>
+			<xs:element name="Message" type="MessageType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MessageType">
+		<xs:sequence>
+			<xs:element name="body" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="from" type="xs:string"/>
+		<xs:attribute name="to" type="xs:string"/>
+		
+	</xs:complexType>
+	<xs:element name="Chat" type="ChatType"/>
+</xs:schema>

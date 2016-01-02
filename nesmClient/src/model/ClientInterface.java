@@ -34,4 +34,18 @@ public interface ClientInterface extends Remote{
     void receiveAnnoncement(String msg)throws RemoteException;
     
     void recieveState(int state,int friendId)throws RemoteException;
+
+    void receiveFile(byte[] file,Integer friendId,String fileName)throws RemoteException;
+    
+   /**
+     * Server use this method to send a client image
+     * @param image
+     * @param friendId
+     * @param imageName
+     * @throws RemoteException 
+     */ 
+    
+    void receiveImage(byte[] image,Integer friendId,String imageName)throws RemoteException; 
+
+    public void updateFriendRequest(Vector<User> friendRequests)throws RemoteException;
 }

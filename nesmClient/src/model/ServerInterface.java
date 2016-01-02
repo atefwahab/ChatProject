@@ -17,6 +17,27 @@ public interface ServerInterface extends Remote{
     String searchEmail(String email)throws RemoteException;
     User getUser()throws RemoteException;
     
+    /**
+     * send file from client to another 
+     * 
+     * @param senderId
+     * @param friendId
+     * @param fileName
+     * @param file
+     * @throws RemoteException 
+     */
+    
+    public void sendFile(int senderId,int friendId,byte[]  file,String fileName)throws RemoteException;
+    /**
+     * send image from client to another 
+     * @param senderId
+     * @param friendId
+     * @param image
+     * @param imageNmae
+     * @throws RemoteException 
+     */
+    public void sendImage(int senderId,int friendId,byte[]  image,String imageNmae)throws RemoteException;
+    
     public boolean addFriendRequest(int sendId,String receiverEmail)throws RemoteException;
     
     public  boolean addFriends(int SenderId,int receiverID)throws RemoteException;

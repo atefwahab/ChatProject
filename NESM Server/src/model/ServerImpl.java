@@ -2,6 +2,7 @@
 package model;
 
 import controller.ServerController;
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
@@ -67,6 +68,25 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     public void sendMessage(int senderId, int friendId, String message) throws RemoteException {
        serverController.sendMessage(senderId, friendId, message);
     }
+    
+     @Override
+     
+    /*
+    *send file
+    */
+    public void sendFile(int senderId, int friendId, byte[]  file,String fileName) throws RemoteException {
+       serverController.sendFile(senderId, friendId, file,fileName);
+    }
+    
+    /*
+    *send image
+    */
+    @Override
+    public void sendImage(int senderId, int friendId, byte[]  image,String imageName) throws RemoteException {
+       serverController.sendImage(senderId, friendId, image,imageName);
+    }
+    
+    
 
     @Override
     public void register(int id,ClientInterface clientInterface) throws RemoteException {
@@ -101,7 +121,6 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
         serverController.sendGroupMessage(sender, friends, message,name);
         
     }
-
-  
+   
     
 }
