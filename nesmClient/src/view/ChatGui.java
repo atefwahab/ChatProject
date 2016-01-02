@@ -6,6 +6,8 @@
 package view;
 
 import controller.ClientController;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -21,6 +23,9 @@ public class ChatGui extends javax.swing.JFrame {
 
     User user;
     ClientController clientController;
+    
+    Font font = new Font(Font.SERIF,Font.PLAIN,18);
+    Color color= Color.getColor("BLUE");
     /**
      * Creates new form ChatGui
      */
@@ -32,7 +37,7 @@ public class ChatGui extends javax.swing.JFrame {
         clientUserNameLabel.setText(user.getUsername());
         clientStateLabel.setText(User.getStringState(user.getState()));
         clientController = c;
-        
+      
         this.setVisible(true);
         
         /**
@@ -99,7 +104,11 @@ public class ChatGui extends javax.swing.JFrame {
                 @Override
                 public void run() {
                          try {
-                             new PlayaudioFile("src\\sounds\\nudge.wav");
+                         //    new PlayaudioFile("src\\sounds\\nudge.wav");
+                         
+                                String url = getClass().getResource("/sounds/nudge.wav").toString();
+                                System.out.println(url);
+                               new PlayaudioFile(url);
                              int x;
                              int y;
                               x=ChatGui.this.getLocation().x;
@@ -129,8 +138,11 @@ public class ChatGui extends javax.swing.JFrame {
             
         
         else{
-        String screen = clientOutputTextArea.getText();
-        clientOutputTextArea.setText(screen+"  "+user.getUsername()+" : "+msg+ "\n");
+       // String screen = clientOutputTextArea.getText();
+       String screen ="  "+user.getUsername()+" : "+msg+ "\n";
+        clientOutputTextArea.setFont(font);
+        clientOutputTextArea.setForeground(color);
+        clientOutputTextArea.append(screen);
        
         new PlayaudioFile("src\\sounds\\new_message.wav");
         }
@@ -289,11 +301,14 @@ public class ChatGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        
+        String msg;
+        synchronized(this){
         String screen = clientOutputTextArea.getText();
-        String msg = clientInputTextField.getText();
+        msg = clientInputTextField.getText();
         clientOutputTextArea.setText(screen+"  Me : "+msg+ "\n");
         clientInputTextField.setText(" ");
+        }
+      
        clientController.sendMessage(user.getId() , msg);
         
     }//GEN-LAST:event_sendButtonActionPerformed

@@ -8,6 +8,7 @@ package model;
 import controller.ClientController;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Vector;
 
 /**
  *
@@ -43,6 +44,13 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
         clientController.recieveState(state, friendId);
      
                 
+    }
+
+    @Override
+    public void receiveGroupChat(User sender,String msg,String name ,Vector<User> participants) throws RemoteException {
+            System.out.println("client impl 1");
+        clientController.receiveGroupChat(sender,msg, name, participants);
+        System.out.println("client impl 2");
     }
     
     

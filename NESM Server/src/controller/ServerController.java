@@ -247,6 +247,27 @@ public class ServerController {
      
          dbConnector.setState(state, userId);
      }
+
+     /**
+      * this method used to send a message from client to group of clients.
+      * @param senderId
+      * @param friendIds
+      * @param message 
+      */
+       public void sendGroupMessage(User sender, Vector<User> participants, String message,String name){
+        
+           for(int i=0;i<participants.size();i++){
+           
+               try {
+                   System.out.println(participants.get(i).getUsername());
+                   onlineUsers.get(participants.get(i).getId()).receiveGroupChat(sender,message,name,participants);
+                   System.out.println("server control 2");
+               } catch (RemoteException ex) {
+                   ex.printStackTrace();
+               }
+           }    
+         
+    }
      
      
      /**
