@@ -57,7 +57,7 @@ public class Validator {
      */
     public static boolean isPassword(String password) 
     {
-        boolean b = Pattern.matches( "^.*(?=.{4,20})(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!#$%&? \"]).*$",password);
+        boolean b = Pattern.matches( "^[^\\d][a-z0-9_-]{6,20}$",password);
 
         return b;
     }

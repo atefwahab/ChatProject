@@ -44,7 +44,7 @@ public class ClientController {
            
         }
         try {
-            Registry reg = LocateRegistry.getRegistry("127.0.0.1", 5000);
+            Registry reg = LocateRegistry.getRegistry("192.168.1.7",2000);
             serverRef = (ServerInterface) reg.lookup("Server Object");
             messengerGui = new MessengerGui(this);
             messengerGui.setResizable(false);
@@ -69,6 +69,8 @@ public class ClientController {
                 
                 
                 serverRef.register(user.getId(),clientImpl);
+                serverRef.updateFriendRequest(user.getId());
+                
                 
                 
             } 
@@ -202,7 +204,7 @@ public class ClientController {
         if(openChatGroupWindows.containsKey(chatGroupName)){
             
             chatgroup=openChatGroupWindows.get(chatGroupName);
-            System.out.println("it is found");
+            
             
         }else{
         
@@ -266,7 +268,7 @@ public class ClientController {
                        imageName="offline";
                        break;
                }
-               new Notification(friendUser.getUsername(),User.getStringState(friendUser.getState()),imageName,"src\\sounds\\userState.wav");
+               new Notification(friendUser.getUsername(),User.getStringState(friendUser.getState()),imageName);
                
                friendListJframe.paintList();
                //To Update status in chat windows if it is open
@@ -358,13 +360,11 @@ public class ClientController {
    public void startChatGroup(String name,Vector<User> participants){
    
        participants.add(user);
-       for (int i = 0; i <participants.size(); i++) {
-           System.out.println(participants.get(i).getUsername());
-       }
       
-       System.out.println("start chat 1");
+      
+   
        sendGroupMessage(user.getUsername()+" has started a group chat",name,participants);
-       System.out.println("start chat 2");
+      
    
    }
    /**
@@ -375,9 +375,9 @@ public class ClientController {
    public void sendGroupMessage(String message,String name,Vector<User> participants){
    
         try {
-            System.out.println("send group 1");
+           
             serverRef.sendGroupMessage(user, participants, message,name);
-            System.out.println("send group 2");
+            
         } catch (RemoteException ex) {
             ex.printStackTrace();
         }
@@ -474,7 +474,52 @@ public class ClientController {
       public void updateFriendRequest(Vector<User> friendRequests){
       
               friendListJframe.setRequestFriend(friendRequests);
+              
       
+      }
+      
+      /**
+       * remove friend request
+       * @param senderId
+       * @param receiverID
+       * @return 
+       */
+      public void removeFriendRequest(int senderId){
+      
+        try {
+            serverRef.removeFriendRequest(senderId,user.getId());
+            serverRef.updateFriendRequest(user.getId());
+        } catch (RemoteException ex) {
+           ex.printStackTrace();
+        }
+      }
+      
+      public  boolean addFriends(int SenderId){
+      
+          boolean flag=false;
+        try {
+            
+            flag= serverRef.addFriends(SenderId,user.getId());
+            if(flag){
+            
+                serverRef.updateFriendRequest(user.getId());
+            }
+        } catch (RemoteException ex) {
+           
+      }
+        return flag;
+      }
+      
+      /**
+       * Client controller can receive updates of friends from server using this method.
+       * @param friend 
+       */
+      public void updateFriends(Vector<User> friend){
+      
+          this.friends=friend;
+          this.user.setFriends(friend);
+          friendListJframe.setFriend(friend);
+          friendListJframe.paintList();
       }
     
     /*

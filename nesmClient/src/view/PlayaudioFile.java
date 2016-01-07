@@ -6,6 +6,8 @@
 package view;
 
 import java.io.File;
+import java.net.URL;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.*;
 
@@ -24,14 +26,15 @@ public class PlayaudioFile extends Thread {
     DataLine.Info info;
     Clip audioClip;
     
-    public PlayaudioFile(String fileName) {
+    public PlayaudioFile(URL fileName) {
         
-        audioFile=new File(fileName);
+        //audioFile=new File(fileName);
+        
         
         try{
         //get the audioStream from file 
-        audioStream=AudioSystem.getAudioInputStream(audioFile);
-        
+        //audioStream=AudioSystem.getAudioInputStream(audioFile);
+        audioStream=AudioSystem.getAudioInputStream(fileName);
         //Getting audio format
         format = audioStream.getFormat();
         

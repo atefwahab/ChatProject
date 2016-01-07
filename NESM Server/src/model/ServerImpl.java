@@ -121,6 +121,16 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
         serverController.sendGroupMessage(sender, friends, message,name);
         
     }
+
+    @Override
+    public void updateFriendRequest(int userID) throws RemoteException {
+    serverController.updateFriendRequest(userID);
+    }
+
+    @Override
+    public boolean removeFriendRequest(int senderId, int receiverID) throws RemoteException {
+        return  serverController.removeFriendRequest(senderId, receiverID);
+    }
    
     
 }

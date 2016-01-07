@@ -9,6 +9,7 @@ import controller.ClientController;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import model.User;
 
 /**
@@ -39,6 +40,8 @@ public class ChatGroupGui extends javax.swing.JFrame {
            System.out.println("ana gwa el chat group aho w ana esmy "+participants.get(i).getUsername());
        }
         paintList();
+       ImageIcon logo=new ImageIcon(getClass().getResource("/view/logo.png"));
+        this.setIconImage(logo.getImage());
         this.setVisible(true);
     }
     
@@ -54,7 +57,7 @@ public class ChatGroupGui extends javax.swing.JFrame {
                 
                        
                          
-                       new PlayaudioFile("src\\sounds\\nudge.wav");
+                   new PlayaudioFile(getClass().getResource("/sounds/nudge.wav"));
                             
                                 
                             
@@ -65,7 +68,7 @@ public class ChatGroupGui extends javax.swing.JFrame {
         else{
         String txt=user.getUsername()+" : "+msg+"\n";
         outputjTextArea.append(txt);
-        new PlayaudioFile("src\\sounds\\new_message.wav");
+       new PlayaudioFile(getClass().getResource("/sounds/new_message.wav"));
    
          }   
       }

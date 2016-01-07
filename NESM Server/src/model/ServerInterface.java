@@ -1,4 +1,4 @@
-
+ 
 package model;
 
 import java.rmi.Remote;
@@ -52,4 +52,6 @@ public interface ServerInterface extends Remote{
     
     public void updateState(int state,User friendUser)throws RemoteException;
     public void setMyState(int userId,int state)throws RemoteException;
+    public void updateFriendRequest(int userID) throws RemoteException;
+    public boolean removeFriendRequest(int senderId,int receiverID)throws RemoteException;
 }

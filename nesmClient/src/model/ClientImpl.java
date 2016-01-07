@@ -67,6 +67,17 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
     public void updateFriendRequest(Vector<User> friendRequests) throws RemoteException {
         clientController.updateFriendRequest(friendRequests);
     }
+
+    /**
+     * this method used by the server to update the client friends.
+     * @param friend
+     * @throws RemoteException 
+     */
+    @Override
+    public void updateFriends(Vector<User> friend) throws RemoteException {
+       
+        clientController.updateFriends(friend);
+    }
     
     
     

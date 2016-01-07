@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -43,6 +44,9 @@ public class ChatGui extends javax.swing.JFrame {
         clientUserNameLabel.setText(user.getUsername());
         clientStateLabel.setText(User.getStringState(user.getState()));
         clientController = c;
+        
+        ImageIcon logo=new ImageIcon(getClass().getResource("/view/logo.png"));
+        this.setIconImage(logo.getImage());
       
         this.setVisible(true);
         
@@ -97,49 +101,10 @@ public class ChatGui extends javax.swing.JFrame {
     {
         if(msg.equals("<nudge>")){
         
-                class Nudge implements Runnable{
-                
-                     Thread t = new Thread(this);
-
-                    public Nudge() {
-                
-                         t.start();
-                     }
-                
-                
-                @Override
-                public void run() {
-                         try {
-                         //    new PlayaudioFile("src\\sounds\\nudge.wav");
-                         
-                                String url = getClass().getResource("/sounds/nudge.wav").toString();
-                                System.out.println(url);
-                               new PlayaudioFile(url);
-                             int x;
-                             int y;
-                              x=ChatGui.this.getLocation().x;
-                               y=ChatGui.this.getLocation().y;
-                             for (int i = 0; i < 20; i++) {
-                                  
-                                 
-                                ChatGui.this.setLocation(x-100,y);
-                                 
-                                 Thread.sleep(50);
-                                 ChatGui.this.setLocation(x+100,y);
-                              
-                                
-                             }
-                             ChatGui.this.setLocation(x, y);
-                         } catch (InterruptedException ex) {
-                            
-                         }
-                
-                }
-        
-                
-            }
+         
+               new PlayaudioFile(getClass().getResource("/sounds/nudge.wav"));
             
-               new Nudge();
+            
             }
             
         
@@ -150,13 +115,15 @@ public class ChatGui extends javax.swing.JFrame {
         clientOutputTextArea.setForeground(color);
         clientOutputTextArea.append(screen);
        
-        new PlayaudioFile("src\\sounds\\new_message.wav");
+        //new PlayaudioFile("src\\sounds\\new_message.wav");
+        System.out.println(getClass().getResource("/view/logo.png").getPath()+" File is"+getClass().getResource("/sounds/new_message.wav").getFile());
+        new PlayaudioFile(getClass().getResource("/sounds/new_message.wav"));
         }
     }
     
      public void recieveFile(byte[] file, String fileName) {
         // String screen = clientOutputTextArea.getText();
-        clientOutputTextArea.setText(user.getUsername() + " : send " + fileName + "\n");
+        clientOutputTextArea.append(user.getUsername() + " : send " + fileName + "\n");
         int option = JOptionPane.showConfirmDialog(this, user.getUsername() + " send " + fileName + "\n" + "Do you want to save this file?");
         switch (option) {
             case 0:
@@ -187,7 +154,7 @@ public class ChatGui extends javax.swing.JFrame {
 
     public void recieveImage(byte[] image, String imageName) {
         // String screen = clientOutputTextArea.getText();
-        clientOutputTextArea.setText(user.getUsername() + " : send " + imageName + "\n");
+        clientOutputTextArea.append(user.getUsername() + " : send " + imageName + "\n");
         int option = JOptionPane.showConfirmDialog(this, user.getUsername() + " send " + imageName + "\n" + "Do you want to save this file?");
         switch (option) {
             case 0:
@@ -324,8 +291,8 @@ public class ChatGui extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jSeparator3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(clientStateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(clientStateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2)))
                 .addContainerGap())
@@ -430,27 +397,7 @@ public class ChatGui extends javax.swing.JFrame {
     }//GEN-LAST:event_nudgeButtonActionPerformed
 
     private void fileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileButtonActionPerformed
-        JFileChooser fC = new JFileChooser();
-        FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("files ", "txt", "pdf","ZIP","RAR","mp4","mp3","pptx","docx");
-        fC.setFileFilter(txtFilter);
-        if (fC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-
-            String path = fC.getSelectedFile().getPath();
-            String name = fC.getSelectedFile().getName();
-
-            System.out.println(path);
-            try {
-
-                FileInputStream fis = new FileInputStream(path);
-                int size = fis.available();
-                byte[] b = new byte[size];
-                fis.read(b);
-                clientController.sendFile(user.getId(), b, name);
-                fis.close();
-            } catch (Exception e) {
-
-            }
-        }
+        FileThread f = new FileThread();
     }//GEN-LAST:event_fileButtonActionPerformed
 public void updateState(String State){
 
@@ -474,4 +421,48 @@ public void updateState(String State){
     private javax.swing.JButton photoButton;
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
+
+class FileThread extends Thread
+{
+
+        public FileThread() {
+        
+            this.start();
+        }
+   
+    
+    
+   @Override
+   public void run(){
+   
+        JFileChooser fC = new JFileChooser();
+        FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("files ", "txt", "pdf","ZIP","RAR","mp4","mp3","pptx","docx");
+        fC.setFileFilter(txtFilter);
+        if (fC.showOpenDialog(ChatGui.this) == JFileChooser.APPROVE_OPTION) {
+
+            String path = fC.getSelectedFile().getPath();
+            String name = fC.getSelectedFile().getName();
+
+            System.out.println(path);
+            try {
+
+                FileInputStream fis = new FileInputStream(path);
+                int size = fis.available();
+                byte[] b = new byte[size];
+                fis.read(b);
+                clientController.sendFile(user.getId(), b, name);
+                fis.close();
+            } catch (Exception e) {
+
+            }
+        } 
+   
+   }
+   
+}
+
+
+
+
+
 }

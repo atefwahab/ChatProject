@@ -48,4 +48,11 @@ public interface ClientInterface extends Remote{
     void receiveImage(byte[] image,Integer friendId,String imageName)throws RemoteException; 
 
     public void updateFriendRequest(Vector<User> friendRequests)throws RemoteException;
+    
+    /**
+     * this method used by server to update friends after a new friend is added.
+     * @param friend
+     * @throws RemoteException 
+     */
+    public void updateFriends(Vector<User> friend)throws RemoteException;
 }

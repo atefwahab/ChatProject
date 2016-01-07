@@ -439,7 +439,7 @@ public class DbConnector
             Vector<User> friendsRequest=new Vector<>();
             try {
             
-            String query="SELECT `recevier_id` FROM `request` WHERE `send_request`="+userID;
+            String query="SELECT `send_request` FROM `request` WHERE `recevier_id`="+userID;
                 
                 ResultSet resultSet=state.executeQuery(query);
                 Vector<Integer> id=new Vector<>();
@@ -447,6 +447,7 @@ public class DbConnector
                 while(resultSet.next()){
                     
                     id.add(resultSet.getInt(1));
+                    System.out.println(resultSet.getString(1));
                 }
                    
                 //Getting information of Friends 
@@ -485,8 +486,9 @@ public class DbConnector
 	public boolean removeFriendRequest(int senderId,int receiverID){
 		
             boolean flag=false;
-            String query="DELETE FROM `request` WHERE `send_request`="+senderId+"and `recevier_id`="+receiverID;
+            String query="DELETE FROM `request` WHERE `send_request`="+senderId+" and `recevier_id`="+receiverID;
         try {
+            System.out.println(query);
             state.executeUpdate(query);
             flag=true;
         } catch (SQLException ex) {

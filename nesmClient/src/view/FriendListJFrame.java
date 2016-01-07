@@ -24,6 +24,10 @@ public class FriendListJFrame extends javax.swing.JFrame {
     User user;
     DefaultListModel dm=new DefaultListModel();
     DefaultListModel rdm=new DefaultListModel();
+
+    public void setFriend(Vector<User> friend) {
+        this.friend = friend;
+    }
     
     Vector<User> friend;
     Vector<User> requestFriend=new Vector<>();
@@ -35,6 +39,10 @@ public class FriendListJFrame extends javax.swing.JFrame {
     //Set the friend request and paint it
     public void setRequestFriend(Vector<User> requestFriend) {
         this.requestFriend = requestFriend;
+        
+       
+        
+                
         requestFriendList();
         
     }
@@ -86,7 +94,9 @@ public class FriendListJFrame extends javax.swing.JFrame {
         paintList();
          requestFriendList();
         
-        main();
+         ImageIcon logo=new ImageIcon(getClass().getResource("/view/logo.png"));
+        this.setIconImage(logo.getImage());
+       this.setVisible(true);
          
         
         /**
@@ -146,8 +156,8 @@ public class FriendListJFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         statejComboBox = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        addfriendButton = new javax.swing.JButton();
+        chatGroupButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -165,16 +175,17 @@ public class FriendListJFrame extends javax.swing.JFrame {
         requestjList = new javax.swing.JList<>();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        availableMenu = new javax.swing.JMenuItem();
+        busyMenu = new javax.swing.JMenuItem();
+        awayMenu = new javax.swing.JMenuItem();
         Options = new javax.swing.JMenu();
+        chatgroupmenu = new javax.swing.JMenuItem();
+        addfriendmenu = new javax.swing.JMenuItem();
         logOutMenuItem = new javax.swing.JMenuItem();
+        exitMenu = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -192,17 +203,17 @@ public class FriendListJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Add .png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addfriendButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Add .png"))); // NOI18N
+        addfriendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addfriendButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/groupChat.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        chatGroupButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/groupChat.png"))); // NOI18N
+        chatGroupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                chatGroupButtonActionPerformed(evt);
             }
         });
 
@@ -228,12 +239,13 @@ public class FriendListJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(20, 20, 20)
                         .addComponent(statejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addfriendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(chatGroupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,8 +278,8 @@ public class FriendListJFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(chatGroupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addfriendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(statejComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
@@ -323,7 +335,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,7 +355,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,15 +386,17 @@ public class FriendListJFrame extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(52, 152, 219));
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/ad.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -402,40 +416,31 @@ public class FriendListJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Status");
 
-        jMenuItem2.setText("Avaliable");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        availableMenu.setText("Avaliable");
+        availableMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                availableMenuActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(availableMenu);
 
-        jMenuItem3.setText("Busy");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setText("Away");
-        jMenu1.add(jMenuItem4);
-
-        jMenuItem5.setText("OffLine");
-        jMenu1.add(jMenuItem5);
-
-        jMenuItem7.setText("Add Friend");
-        jMenuItem7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem7MouseClicked(evt);
-            }
-        });
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        busyMenu.setText("Busy");
+        busyMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                busyMenuActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMenu1.add(busyMenu);
 
-        jMenuItem6.setText("Group Chat");
-        jMenu1.add(jMenuItem6);
+        awayMenu.setText("Away");
+        awayMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                awayMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(awayMenu);
 
         jMenuBar1.add(jMenu1);
 
@@ -446,6 +451,22 @@ public class FriendListJFrame extends javax.swing.JFrame {
             }
         });
 
+        chatgroupmenu.setText("New Chat Group");
+        chatgroupmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatgroupmenuActionPerformed(evt);
+            }
+        });
+        Options.add(chatgroupmenu);
+
+        addfriendmenu.setText("Add Friend");
+        addfriendmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addfriendmenuActionPerformed(evt);
+            }
+        });
+        Options.add(addfriendmenu);
+
         logOutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         logOutMenuItem.setText("Sign Out");
         logOutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -454,6 +475,14 @@ public class FriendListJFrame extends javax.swing.JFrame {
             }
         });
         Options.add(logOutMenuItem);
+
+        exitMenu.setText("Exit");
+        exitMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuActionPerformed(evt);
+            }
+        });
+        Options.add(exitMenu);
 
         jMenuBar1.add(Options);
 
@@ -477,17 +506,55 @@ public class FriendListJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void availableMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_availableMenuActionPerformed
+        
+        statejComboBox.setSelectedIndex(0);
+    }//GEN-LAST:event_availableMenuActionPerformed
 
     private void requestjListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestjListMouseClicked
        
+         if(evt.getClickCount()==2){ 
+             User friendIdreq=requestjList.getSelectedValue();   
+             String userName = friendIdreq.getUsername();
+       
+       
+       
+                if(userName != null)
+                 {
+          
+                    int res= JOptionPane.showConfirmDialog(this, "Do You want to accept a friend request from "+userName,"New Friend Request",JOptionPane.YES_NO_OPTION);
+           
+                    if(res==JOptionPane.YES_OPTION)
+                    {
+                           
+                            if(clientController.addFriends(friendIdreq.getId())){
+                            
+                                System.out.println("friends was added successfully");
+                                //clientController.updateFriendRequest(friend);
+                                
+                                
+                            }else{
+                                System.out.println("add was failled");
+                                //clientController.updateFriendRequest(friend);
+                            }
+                    }
+                    if(res==JOptionPane.NO_OPTION)
+                    {
+                        System.out.println("no");
+                        clientController.removeFriendRequest(friendIdreq.getId());
+                        //clientController.removeFriendRequest(user.getId());
+                        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    }
+                   }
+       
+        
+         }
+        
     }//GEN-LAST:event_requestjListMouseClicked
 
     private void friendjListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_friendjListValueChanged
-        
-        
+       
+               
     }//GEN-LAST:event_friendjListValueChanged
 
     private void friendjListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_friendjListMouseClicked
@@ -544,104 +611,105 @@ public class FriendListJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_logOutMenuItemActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addfriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addfriendButtonActionPerformed
      
         boolean validateRes , requestRes;
         String  userName ;
-        String email =JOptionPane.showInputDialog(this,"Please enter The email .","Add Friend",JOptionPane.PLAIN_MESSAGE);
+        String email =JOptionPane.showInputDialog(this,"Please enter The email .","Add Friend",JOptionPane.OK_CANCEL_OPTION);
+       
+        userName = clientController.searchEmail(email);
+        if(email == null)
+        {
+           setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
+        } 
         
-        validateRes = model.Validator.isEmail(email);
+        else
+        {
+            
+            friend = user.getFriends();
+            for(User f : friend)
+            {
+                if(f.getEmail().equals(email))
+               {
+                JOptionPane.showMessageDialog(this,"That is already a friend of You .");
+               }
+            }    
+               if(user.getEmail().equals(email))
+               {
+                JOptionPane.showMessageDialog(this," You can't send a request to yourself .");
+               } 
+               
+               else
+               {
+                    validateRes = model.Validator.isEmail(email);
+                    if(validateRes == true)
+                    {
+                        
+                       requestRes = clientController.addFriendRequest(user.getId(), email);
+          
+                      
+                    }
+                    else
+                    {
+                        JOptionPane.showConfirmDialog(this, "The Email is wrong .");
+                    } 
+               }
+        }
         
-       if(validateRes == true)
-       {
-          userName = clientController.searchEmail(email);
-          
-         requestRes = clientController.addFriendRequest(user.getId(), email);
-          
-        /* if(requestRes == true)
-         {
-             
-         }
-         else
-         {
-             
-         }
-         */
-       }
-       else
-       {
-           JOptionPane.showConfirmDialog(this, "The Email is wrong .");
-       }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         
       
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_addfriendButtonActionPerformed
 
-    private void jMenuItem7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem7MouseClicked
-      
-    }//GEN-LAST:event_jMenuItem7MouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void chatGroupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatGroupButtonActionPerformed
       
         clientController.selectChatGroup();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_chatGroupButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public  void main() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FriendListJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FriendListJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FriendListJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FriendListJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void addfriendmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addfriendmenuActionPerformed
+        addfriendButton.doClick();
+    }//GEN-LAST:event_addfriendmenuActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FriendListJFrame.this.setVisible(true);
-            }
-        });
-    }
+    private void chatgroupmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatgroupmenuActionPerformed
+        // TODO add your handling code here:
+        chatGroupButton.doClick();
+    }//GEN-LAST:event_chatgroupmenuActionPerformed
+
+    private void exitMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuActionPerformed
+        // TODO add your handling code here:
+        logOutMenuItem.doClick();
+        System.exit(0);
+    }//GEN-LAST:event_exitMenuActionPerformed
+
+    private void busyMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busyMenuActionPerformed
+       statejComboBox.setSelectedIndex(1);
+    }//GEN-LAST:event_busyMenuActionPerformed
+
+    private void awayMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_awayMenuActionPerformed
+        statejComboBox.setSelectedIndex(2);
+    }//GEN-LAST:event_awayMenuActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Options;
+    private javax.swing.JButton addfriendButton;
+    private javax.swing.JMenuItem addfriendmenu;
+    private javax.swing.JMenuItem availableMenu;
+    private javax.swing.JMenuItem awayMenu;
+    private javax.swing.JMenuItem busyMenu;
+    private javax.swing.JButton chatGroupButton;
+    private javax.swing.JMenuItem chatgroupmenu;
+    private javax.swing.JMenuItem exitMenu;
     private javax.swing.JTabbedPane friendRequestTabbedPane;
     private javax.swing.JList<Object> friendjList;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -656,7 +724,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem logOutMenuItem;
     private javax.swing.JLabel mainEmailLabel;
     private javax.swing.JLabel mainUsernameLabel;
-    private javax.swing.JList<Object> requestjList;
+    private javax.swing.JList<User> requestjList;
     private javax.swing.JComboBox<String> statejComboBox;
     // End of variables declaration//GEN-END:variables
 }

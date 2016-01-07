@@ -2,6 +2,13 @@
 package view;
 
 import controller.ServerController;
+import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.transform.Source;
 
 /**
  *
@@ -19,8 +26,13 @@ public class ServerGui extends javax.swing.JFrame {
      */
     ServerController serverController;
     
+    ImageIcon logo;
     public ServerGui(ServerController c) {
         initComponents();
+        logo=new ImageIcon(getClass().getResource("/view/logo.png"));
+        this.setIconImage(logo.getImage());
+        this.setTitle("Hi Messenger Server");
+                
         
         this.setVisible(true);
         
@@ -51,7 +63,6 @@ public class ServerGui extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         northPanel = new javax.swing.JPanel();
-        OnToggleButton = new javax.swing.JToggleButton();
         onLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         onLineLabel = new javax.swing.JLabel();
@@ -72,6 +83,8 @@ public class ServerGui extends javax.swing.JFrame {
         sendAnnouncementButton = new javax.swing.JButton();
         showStaticsButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        OnjButton = new javax.swing.JButton();
+        OffjButton = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -79,10 +92,6 @@ public class ServerGui extends javax.swing.JFrame {
         setResizable(false);
 
         northPanel.setBackground(new java.awt.Color(52, 152, 219));
-
-        OnToggleButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        OnToggleButton.setForeground(new java.awt.Color(0, 0, 204));
-        OnToggleButton.setText("on");
 
         onLineLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/online.png"))); // NOI18N
 
@@ -202,24 +211,36 @@ public class ServerGui extends javax.swing.JFrame {
         });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/adver.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        OnjButton.setText("ON");
+        OnjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OnjButtonActionPerformed(evt);
+            }
+        });
+
+        OffjButton.setText("OFF");
+        OffjButton.setEnabled(false);
+        OffjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OffjButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout northPanelLayout = new javax.swing.GroupLayout(northPanel);
         northPanel.setLayout(northPanelLayout);
         northPanelLayout.setHorizontalGroup(
             northPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northPanelLayout.createSequentialGroup()
-                .addGroup(northPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(northPanelLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel6))
-                    .addGroup(northPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(OnToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(onLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(onLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(northPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(northPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,20 +252,32 @@ public class ServerGui extends javax.swing.JFrame {
                     .addGroup(northPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendAnnouncementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(sendAnnouncementButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(northPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(northPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(OffjButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(OnjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         northPanelLayout.setVerticalGroup(
             northPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northPanelLayout.createSequentialGroup()
                 .addGroup(northPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(onLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(northPanelLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(14, 14, 14)
                         .addGroup(northPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(OnToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(northPanelLayout.createSequentialGroup()
+                                .addComponent(OnjButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(OffjButton))))
+                    .addComponent(onLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -285,43 +318,53 @@ public class ServerGui extends javax.swing.JFrame {
         new PieChartDemo1("Hi Messnger Server Statics",onlineUsers,offlineUSers);
     }//GEN-LAST:event_showStaticsButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public void main() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void OnjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OnjButtonActionPerformed
+        
+        if(serverController.enableServer()){
+            
+            OnjButton.setEnabled(false);
+            OffjButton.setEnabled(true);
+            
+            serverController.createChatFolder();
+            
+            
+            
+           
         }
-        //</editor-fold>
+    }//GEN-LAST:event_OnjButtonActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ServerGui.this.setVisible(true);
-            }
-        });
+    private void OffjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OffjButtonActionPerformed
+        
+        if(serverController.disableServer()){
+            OffjButton.setEnabled(false);
+            OnjButton.setEnabled(true);
+            onlineUsers=0;
+            offlineUSers=totalUsers;
+        }
+    }//GEN-LAST:event_OffjButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("files ", "txt", "pdf","ZIP","RAR","mp4","mp3","pptx","docx","jpg","png","gif");
+        fc.setFileFilter(txtFilter);
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+
+            String path = fc.getSelectedFile().getPath();
+            String name = fc.getSelectedFile().getName();
+           
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    
+    
+    public void printExp(String txt){
+    
+        inputTextField.setText(txt);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton OnToggleButton;
+    private javax.swing.JButton OffjButton;
+    private javax.swing.JButton OnjButton;
     private javax.swing.JTextField inputTextField;
     private javax.swing.JButton jButton2;
     private javax.swing.JEditorPane jEditorPane1;
@@ -346,4 +389,9 @@ public class ServerGui extends javax.swing.JFrame {
     private javax.swing.JButton showStaticsButton;
     private javax.swing.JLabel totalusersjLabel;
     // End of variables declaration//GEN-END:variables
+
+
+
+
+
 }

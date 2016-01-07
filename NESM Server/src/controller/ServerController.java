@@ -2,6 +2,8 @@
 package controller;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -51,6 +53,12 @@ public class ServerController {
     
       //2-Marshaller
     Marshaller marsh;
+    
+     //3-Unmarshaller
+    Unmarshaller unmarsh;
+    
+    
+    Registry reg;
 
     // >-- Constructor -->
     public ServerController() {
@@ -64,8 +72,8 @@ public class ServerController {
         try {
             //create object from ServerImplementation which will be sent to client
             serverImpl =new ServerImpl(this);
-            Registry reg =LocateRegistry.createRegistry(5000);
-            reg.rebind("Server Object",serverImpl);
+            reg =LocateRegistry.createRegistry(2000);
+            
             
 
         } catch (RemoteException ex) {
@@ -97,9 +105,10 @@ public class ServerController {
         User obj=dbConnector.signIn(email, Password);
        
         if(obj!=null){
-            
+           
             updateState(obj.getState(),obj);
-            updateFriendRequest(dbConnector.getUserId(email));
+            
+           getFriendsRequest(dbConnector.getUserId(email));
         }
         
         
@@ -157,6 +166,7 @@ public class ServerController {
     
         boolean flag= dbConnector.addFriendRequest(sendId, receiverEmail);
         if(flag){
+            
             updateFriendRequest(dbConnector.getUserId(receiverEmail));
         }
             
@@ -165,9 +175,11 @@ public class ServerController {
     
     public void updateFriendRequest(int userID){
     
+        
       if(onlineUsers.containsKey(userID)){
           
           try {
+              
               onlineUsers.get(userID).updateFriendRequest(dbConnector.getFriendsRequest(userID));
           } catch (RemoteException ex) {
               ex.printStackTrace();
@@ -186,8 +198,41 @@ public class ServerController {
      */
     public  boolean addFriends(int SenderId,int receiverID) {
     
-        return dbConnector.addFriends(SenderId, receiverID);
+        boolean flag= dbConnector.addFriends(SenderId, receiverID);
+        //obs
+        File file =new File(dbConnector.getFileID(SenderId, receiverID)+".xml");
+        writeXmlFirstTime(file);
+        updateFriends(SenderId,receiverID);
+        
+        return flag;
     }
+    
+    public boolean enableServer(){
+        boolean flag;
+        try {
+            reg.rebind("Server Object",serverImpl);
+            flag=true;
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+            flag=false;
+        }
+        return flag;
+    }
+    
+    
+     public boolean disableServer(){
+        boolean flag;
+        try {
+            reg.unbind("Server Object");
+            
+            flag=true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            flag=false;
+        }
+        return flag;
+    }
+    
     
     /**
      * Register new object
@@ -230,6 +275,7 @@ public class ServerController {
          ClientInterface receiverClient=onlineUsers.get(friendId);
          // geting the name of file
          String fileName=dbConnector.getFileID(senderId, friendId);
+         //obs
          File file = new File(fileName+".xml");
          //call xml method 
          writeXml(file,message ,dbConnector.getUsername(senderId), dbConnector.getUsername(friendId));
@@ -357,9 +403,9 @@ public class ServerController {
            for(int i=0;i<participants.size();i++){
            
                try {
-                   System.out.println(participants.get(i).getUsername());
+                   
                    onlineUsers.get(participants.get(i).getId()).receiveGroupChat(sender,message,name,participants);
-                   System.out.println("server control 2");
+                   
                } catch (RemoteException ex) {
                    ex.printStackTrace();
                }
@@ -370,25 +416,63 @@ public class ServerController {
        /**
         * Xml methods .
         */
-       
+    
+    public void writeXmlFirstTime(File file){
+    
+        ObjectFactory factory=new ObjectFactory();
+        ChatType chatType = factory.createChatType();
+        JAXBElement<ChatType> JAXPchat=factory.createChat(chatType);
+        try {
+            marsh.marshal(JAXPchat,file);
+        } catch (JAXBException ex) {
+           ex.printStackTrace();
+        }
+    }
         
     public void writeXml(File file,String msg,String userName,String friendName){
     
     
-        ObjectFactory factory=new ObjectFactory();
-        ChatType chatType = factory.createChatType();
+        
+        try { 
+            ObjectFactory factory=new ObjectFactory();
+            unmarsh=context.createUnmarshaller();
+            JAXBElement<ChatType> JAXPchat=(JAXBElement) unmarsh.unmarshal(file);
+            ChatType chatType = (ChatType) JAXPchat.getValue();
+            
+             MessageType messageType=factory.createMessageType();
+            messageType.setBody(msg);
+            messageType.setFrom(userName);
+            messageType.setTo(friendName);
+            chatType.getMessage().add(messageType);
+            marsh.setProperty("com.sun.xml.internal.bind.xmlHeaders", "<?xml-stylesheet type=\"text/xsl\" href=\"xslpro.xsl\"?>");
+            marsh.marshal(JAXPchat, file);
+            
+        } catch (Exception ex) {
+            
+            StringWriter errors = new StringWriter();
+            ex.printStackTrace(new PrintWriter(errors));
+            
+          serverGui.printExp(errors.toString());
+        }
+        
+        
+        /*ChatType chatType = factory.createChatType();
+        
+        
         MessageType messageType=factory.createMessageType();
         messageType.setBody(msg);
         messageType.setFrom(userName);
         messageType.setTo(friendName);
        chatType.getMessage().add(messageType);
-       JAXBElement<ChatType> JAXPchat=factory.createChat(chatType);
+      // JAXBElement<ChatType> JAXPchat=factory.createChat(chatType);
        
         try {
+            JAXBElement<ChatType> JAXPchat=JAXBElement<ChatType>unmarsh.unmarshal(file);
+            unmarsh=context.createUnmarshaller();
             marsh.marshal(JAXPchat, file);
         } catch (JAXBException ex) {
            ex.printStackTrace();
-        }
+        }*/
     
     }
 
@@ -418,8 +502,46 @@ public class ServerController {
         return dbConnector.removeFriendRequest(senderId, receiverID);
     }
     
+    
+    public void updateFriends(int senderId,int friendId){
+
+       ClientInterface c= onlineUsers.get(senderId);
+       if(c!=null){
+       
+           try {
+               c.updateFriends(dbConnector.getFriends(senderId));
+           } catch (RemoteException ex) {
+               ex.printStackTrace();
+           }
+       }
+       c= onlineUsers.get(friendId);
+       if(c!=null){
+       
+           try {
+               c.updateFriends(dbConnector.getFriends(friendId));
+           } catch (RemoteException ex) {
+               ex.printStackTrace();
+           }
+       }
+
+
+}
+    
+    
+ 
+    
  
  
+    public void createChatFolder(){
+    
+        File chatFolder=new File("Chat");
+        if (!chatFolder.exists()) {
+            
+             chatFolder.mkdir();
+        }
+       
+    
+    }
      
      /**
       * Main method

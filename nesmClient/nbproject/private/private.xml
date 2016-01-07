@@ -6,6 +6,8 @@
             <file>file:/E:/ITI/Java/Java%20Project/nesmClient/src/view/ChatGui.java</file>
             <file>file:/E:/ITI/Java/Java%20Project/nesmClient/src/controller/ClientController.java</file>
             <file>file:/E:/ITI/Java/Java%20Project/nesmClient/src/view/FriendListJFrame.java</file>
+            <file>file:/E:/ITI/Java/Java%20Project/nesmClient/src/model/ClientInterface.java</file>
+            <file>file:/E:/ITI/Java/Java%20Project/nesmClient/src/model/ClientImpl.java</file>
         </group>
     </open-files>
 </project-private>

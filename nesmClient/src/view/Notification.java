@@ -28,7 +28,7 @@ public class Notification extends javax.swing.JFrame implements Runnable{
     /**
      * Creates new form Notification
      */
-    public Notification(String username,String status,String imageName,String soundName) {
+    public Notification(String username,String status,String imageName) {
         this.username=username;
         this.state=status;
         thread=new Thread(this);
@@ -40,7 +40,7 @@ public class Notification extends javax.swing.JFrame implements Runnable{
         nameLabel.setText(this.username+" is "+this.state);
         
         this.imageName=imageName;
-        this.soundName=soundName;
+      
         imageIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/"+imageName+".png")));
         thread.start();
         
@@ -132,7 +132,7 @@ public class Notification extends javax.swing.JFrame implements Runnable{
                 
                 Notification.this.setLocation(p);
             }
-            new PlayaudioFile(soundName);
+            new PlayaudioFile(getClass().getResource("/sounds/userState.wav"));
           
             Thread.sleep(3500);
             Notification.this.dispose();

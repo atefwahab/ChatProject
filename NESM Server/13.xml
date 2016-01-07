@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="xslpro.xsl"?>
+<Chat>
+    <Message from="eman" to="hadia">
+        <body>hello</body>
+    </Message>
+    <Message from="hadia" to="eman">
+        <body>try first time</body>
+    </Message>
+</Chat>

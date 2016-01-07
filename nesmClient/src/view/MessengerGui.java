@@ -51,8 +51,11 @@ public class MessengerGui extends javax.swing.JFrame {
         initComponents();
         clientController = c;
         cardLayout = (CardLayout) mainPanel.getLayout();
-        this.main();
+        
         this.setTitle("Hi Messenger");
+        ImageIcon logo=new ImageIcon(getClass().getResource("/view/logo.png"));
+        this.setIconImage(logo.getImage());
+        this.setVisible(true);
         
 
     }
@@ -108,9 +111,13 @@ public class MessengerGui extends javax.swing.JFrame {
         errorRegister = new javax.swing.JLabel();
         signUpPasswordField = new javax.swing.JPasswordField();
         ConfirmPasswordField = new javax.swing.JPasswordField();
+        emailErrLabel = new javax.swing.JLabel();
+        usernameErrLabel = new javax.swing.JLabel();
+        passwordlErrLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(390, 700));
+        setResizable(false);
 
         mainPanel.setBackground(new java.awt.Color(102, 0, 153));
         mainPanel.setLayout(new java.awt.CardLayout());
@@ -488,6 +495,15 @@ public class MessengerGui extends javax.swing.JFrame {
             }
         });
 
+        emailErrLabel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        emailErrLabel.setForeground(new java.awt.Color(255, 153, 153));
+
+        usernameErrLabel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        usernameErrLabel.setForeground(new java.awt.Color(255, 153, 153));
+
+        passwordlErrLabel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        passwordlErrLabel.setForeground(new java.awt.Color(255, 153, 153));
+
         javax.swing.GroupLayout SignUpPanelLayout = new javax.swing.GroupLayout(SignUpPanel);
         SignUpPanel.setLayout(SignUpPanelLayout);
         SignUpPanelLayout.setHorizontalGroup(
@@ -495,32 +511,40 @@ public class MessengerGui extends javax.swing.JFrame {
             .addGroup(SignUpPanelLayout.createSequentialGroup()
                 .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SignUpPanelLayout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(SignUpPanelLayout.createSequentialGroup()
+                                .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(imagepass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(ConfirmPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(signUpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EmailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(SignUpPanelLayout.createSequentialGroup()
+                                .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(signUpEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(UserNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(signupUserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(emailimage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(SignUpPanelLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usernameErrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailErrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordlErrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(SignUpPanelLayout.createSequentialGroup()
+                .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SignUpPanelLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(errorRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(SignUpPanelLayout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(SignUpPanelLayout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(SignUpPanelLayout.createSequentialGroup()
-                        .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imagepass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(ConfirmPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(signUpPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(SignUpPanelLayout.createSequentialGroup()
-                        .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(signUpEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(UserNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(signupUserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(emailimage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(122, 122, 122)
+                        .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         SignUpPanelLayout.setVerticalGroup(
             SignUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,9 +571,15 @@ public class MessengerGui extends javax.swing.JFrame {
                     .addComponent(imagepass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(errorRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(usernameErrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailErrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(passwordlErrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(179, Short.MAX_VALUE))
         );
 
         mainPanel.add(SignUpPanel, "signUp");
@@ -677,8 +707,23 @@ public class MessengerGui extends javax.swing.JFrame {
         else{
             
             errorRegister.setText("");
-             checkPasswordConfirmFlag=true;
-             checkPasswordFlag=true;
+            
+            
+             if(Validator.isPassword(new String(signUpPasswordField.getPassword()))&&Validator.isPassword(new String(ConfirmPasswordField.getPassword())))
+            { 
+                checkPasswordFlag=true;
+                checkPasswordConfirmFlag=true;
+                passwordlErrLabel.setText("");
+            }else{
+            
+                checkPasswordFlag=false;
+                checkPasswordConfirmFlag=false;
+                
+                registerButton.setEnabled(false);
+                 passwordlErrLabel.setText("*.Password is more 6 chars & a special char & a num");
+                
+            }
+            
         }
         
         //Check it is not an empty textField
@@ -704,23 +749,41 @@ public class MessengerGui extends javax.swing.JFrame {
     private void signUpEmailTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_signUpEmailTextFieldKeyReleased
 
         boolean flag = clientController.checkEmail(signUpEmailTextField.getText());
-        if (!clientController.checkEmail(signUpEmailTextField.getText())) {
+      
+        
+        
+        
+            if (!clientController.checkEmail(signUpEmailTextField.getText())) {
 
-            emailimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/correct.png")));
-            checkEmailFlag = true;
-            if (checkEmailFlag && checkUserNameflag && checkPasswordFlag && checkPasswordConfirmFlag) {
+                emailimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/correct.png")));
+            
+                
+                
+                if(Validator.isEmail(signUpEmailTextField.getText()))
+                {   
+                    checkEmailFlag = true;
+                    emailErrLabel.setText("");
+                }
+                    
+                else{
+                    checkEmailFlag = false;
+                    registerButton.setEnabled(false);
+                    emailimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/errorImage.png")));
+                    emailErrLabel.setText("* .. Wrong Email Format");
+                }
+                if (checkEmailFlag && checkUserNameflag && checkPasswordFlag && checkPasswordConfirmFlag) {
 
-                registerButton.setEnabled(true);
+                   registerButton.setEnabled(true);
+                }
+
+            } else {
+
+                emailimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/errorImage.png")));
+
+                checkEmailFlag = false;
+                registerButton.setEnabled(false);
+
             }
-
-        } else {
-
-            emailimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/errorImage.png")));
-
-            checkEmailFlag = false;
-            registerButton.setEnabled(false);
-
-        }
         
    
     }//GEN-LAST:event_signUpEmailTextFieldKeyReleased
@@ -732,12 +795,23 @@ public class MessengerGui extends javax.swing.JFrame {
             checkUserNameflag=false;
             registerButton.setEnabled(false);
         
-        }else{
+        }
+        else{
         
-            checkUserNameflag=true;
+            if(Validator.isUsername(signupUserNameTextField.getText()))
+            { checkUserNameflag=true;
+                usernameErrLabel.setText("");}
+            else
+            {   
+                checkUserNameflag=false;
+                usernameErrLabel.setText("* .. Username should be more than 4 characters");
+            }
             if(checkEmailFlag&&checkPasswordConfirmFlag&&checkPasswordFlag&&checkUserNameflag){
             
                 registerButton.setEnabled(true);
+            }else{
+                registerButton.setEnabled(false);
+            
             }
         }
         
@@ -756,8 +830,20 @@ public class MessengerGui extends javax.swing.JFrame {
         else{
             
             errorRegister.setText("");
-            checkPasswordFlag=true;
-            checkPasswordConfirmFlag=true;
+            if(Validator.isPassword(new String(signUpPasswordField.getPassword()))&&Validator.isPassword(new String(ConfirmPasswordField.getPassword())))
+            { 
+                checkPasswordFlag=true;
+                checkPasswordConfirmFlag=true;
+                passwordlErrLabel.setText("");
+            }else{
+            
+                checkPasswordFlag=false;
+                checkPasswordConfirmFlag=false;
+                
+                registerButton.setEnabled(false);
+                passwordlErrLabel.setText("*.Password is more 6 chars & a special char & a num");
+                
+            }
         }
         
         //Check if it is not empty 
@@ -843,42 +929,7 @@ public class MessengerGui extends javax.swing.JFrame {
     
     
     
-    
-    /**
-     * @param args the command line arguments
-     */
-    public void main() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MessengerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MessengerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MessengerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MessengerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MessengerGui.this.setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField ConfirmPasswordField;
@@ -891,6 +942,7 @@ public class MessengerGui extends javax.swing.JFrame {
     private javax.swing.JButton SignUp;
     private javax.swing.JPanel SignUpPanel;
     private javax.swing.JLabel UserNameLabel;
+    private javax.swing.JLabel emailErrLabel;
     private javax.swing.JLabel emailErrorPanel;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel emailimage;
@@ -914,6 +966,7 @@ public class MessengerGui extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel passwordlErrLabel;
     private javax.swing.JButton registerButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchTextField;
@@ -923,6 +976,7 @@ public class MessengerGui extends javax.swing.JFrame {
     private javax.swing.JPasswordField signUpPasswordField;
     private javax.swing.JTextField signupUserNameTextField;
     private javax.swing.JLabel userNameLabel;
+    private javax.swing.JLabel usernameErrLabel;
     // End of variables declaration//GEN-END:variables
 
 }
