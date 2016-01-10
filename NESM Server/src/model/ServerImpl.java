@@ -2,6 +2,8 @@
 package model;
 
 import controller.ServerController;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -65,8 +67,8 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface{
     }
 
     @Override
-    public void sendMessage(int senderId, int friendId, String message) throws RemoteException {
-       serverController.sendMessage(senderId, friendId, message);
+    public void sendMessage(int senderId, int friendId, String message,Font font,Color color) throws RemoteException {
+       serverController.sendMessage(senderId, friendId, message,font,color);
     }
     
      @Override

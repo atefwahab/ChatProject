@@ -1,5 +1,8 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -32,6 +35,7 @@ public class ClientController {
     HashMap<String,ChatGroupGui> openChatGroupWindows = new HashMap<>();
     ClientImpl clientImpl;
     Vector<User>friends;
+     static int  index=0;
     
     
 
@@ -44,7 +48,7 @@ public class ClientController {
            
         }
         try {
-            Registry reg = LocateRegistry.getRegistry("192.168.1.7",2000);
+            Registry reg = LocateRegistry.getRegistry("127.0.0.1",2000);
             serverRef = (ServerInterface) reg.lookup("Server Object");
             messengerGui = new MessengerGui(this);
             messengerGui.setResizable(false);
@@ -129,10 +133,10 @@ public class ClientController {
      * @param friendId
      * @param message 
      */
-     public void sendMessage(int friendId,String message)
+     public void sendMessage(int friendId,String message,Font font,Color color)
      {
         try {
-            serverRef.sendMessage(user.getId(), friendId, message);
+            serverRef.sendMessage(user.getId(), friendId, message,font,color);
         } catch (RemoteException ex) {
             ex.printStackTrace();
         }
@@ -143,7 +147,7 @@ public class ClientController {
      * @param friendId 
      * 
      */
-    public void receive(String msg, int friendId)
+    public void receive(String msg, int friendId,Font font,Color color)
     {
         ChatGui chatGui= null;
      
@@ -156,7 +160,7 @@ public class ClientController {
                 chatGui = this.open(friendUser);
             }
         }
-        chatGui.recieve(msg);
+        chatGui.recieve(msg,font,color);
     }
     
     
@@ -218,16 +222,40 @@ public class ClientController {
     
      public void receiveAnnouncemt(String msg){
      
+         Font font = new Font(Font.DIALOG,Font.BOLD,20);
+         Color color=Color.BLUE;
          User serverUser=new User();
          serverUser.setUsername("Hi Messenger Server");
          serverUser.setId(0);
          
          ChatGui chatGui=open(serverUser);
          if(chatGui!=null)
-         chatGui.recieve(msg);
+         chatGui.recieve(msg,font,color);
          
          
          
+     }
+      public void receiveAnnoc(byte[] image)
+     {
+         index++;
+         
+         try
+         {
+        FileOutputStream fos = new FileOutputStream("ad"+index+".png");
+                      
+             fos.flush();
+
+                        fos.write(image);
+                        friendListJframe.setAd();
+                        fos.close();
+                        
+                        
+                        
+         }
+         catch(Exception e)
+         {
+             
+         }
      }
      
    public User getUser(){
@@ -325,6 +353,8 @@ public class ClientController {
             serverRef.setMyState(user.getId(),User.Offline);
             serverRef.updateState(User.Offline, user);
             serverRef.unregister(user.getId());
+            // this updated
+            messengerGui = new MessengerGui(this);
         } catch (RemoteException ex) {
             ex.printStackTrace();
         }

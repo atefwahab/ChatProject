@@ -2,6 +2,7 @@
 package view;
 
 import controller.ServerController;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
@@ -344,23 +345,33 @@ public class ServerGui extends javax.swing.JFrame {
     }//GEN-LAST:event_OffjButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       JFileChooser fc = new JFileChooser();
+      JFileChooser fc = new JFileChooser();
         FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("files ", "txt", "pdf","ZIP","RAR","mp4","mp3","pptx","docx","jpg","png","gif");
         fc.setFileFilter(txtFilter);
         if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 
             String path = fc.getSelectedFile().getPath();
             String name = fc.getSelectedFile().getName();
+             System.out.println(path);
+            try {
+
+                FileInputStream fi = new FileInputStream(path);
+                int size = fi.available();
+                byte[] b = new byte[size];
+                fi.read(b);
+                serverController.sendAnnoc(b);
+                fi.close();
+            } catch (Exception e) {
+
+            }
+           
            
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
     
-    public void printExp(String txt){
-    
-        inputTextField.setText(txt);
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton OffjButton;

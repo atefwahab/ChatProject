@@ -1,6 +1,8 @@
  
 package model;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Vector;
@@ -42,7 +44,7 @@ public interface ServerInterface extends Remote{
     
     public  boolean addFriends(int SenderId,int receiverID)throws RemoteException;
     
-    public void sendMessage(int senderId,int friendId,String message)throws RemoteException;
+    public void sendMessage(int senderId,int friendId,String message,Font font,Color color)throws RemoteException;
  
      public void sendGroupMessage(User senderId,Vector<User> friends,String message,String name)throws RemoteException;
     

@@ -609,23 +609,9 @@ public class MessengerGui extends javax.swing.JFrame {
         if (!signInEmailTextField.getText().equals(null) && !signInPasswordTextField.getPassword().equals(null)) {
             if (clientController.signIn(signInEmailTextField.getText(), new String(signInPasswordTextField.getPassword()))) {
                 
-               /* myUser=clientController.getUser();
-                friends=myUser.getFriends();
-                userNameLabel.setText(myUser.getUsername());
-                emailLabel.setText(myUser.getEmail());
-                Vector<String> friendsNames=new Vector<>();
-                
-                for(int i=0;i<friends.size();i++){
-                
-                friendsNames.add(friends.elementAt(i).getUsername());
-                }
-                
-                friendsList.setListData(friendsNames);
-                
-                
-                //cardLayout.next(mainPanel);
-                */
-               this.setVisible(false);
+               
+               
+               this.dispose();
                 
             } else {
                 errorLabel.setText("Login Problem");

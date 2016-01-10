@@ -1,6 +1,8 @@
 
 package controller;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -270,7 +272,7 @@ public class ServerController {
      * @param friendId
      * @param message 
      */
-     public void sendMessage(int senderId,int friendId,String message){
+     public void sendMessage(int senderId,int friendId,String message,Font font,Color color){
      
          ClientInterface receiverClient=onlineUsers.get(friendId);
          // geting the name of file
@@ -281,7 +283,7 @@ public class ServerController {
          writeXml(file,message ,dbConnector.getUsername(senderId), dbConnector.getUsername(friendId));
          
         try {
-            receiverClient.receive(message, senderId);
+            receiverClient.receive(message, senderId,font,color);
         } catch (RemoteException ex) {
            
         }
@@ -349,6 +351,23 @@ public class ServerController {
   
      
      }
+     
+     
+     
+   public void sendAnnoc(byte[] image)
+   {
+     Iterator<ClientInterface> iterator=onlineUsers.values().iterator();
+         
+         while(iterator.hasNext()){
+         
+             try {
+                 iterator.next().receiveAnnoc(image);
+             } catch (RemoteException ex) {
+                ex.printStackTrace();
+             }
+         
+         } 
+   }
      
      
      /**
@@ -449,10 +468,7 @@ public class ServerController {
             
         } catch (Exception ex) {
             
-            StringWriter errors = new StringWriter();
-            ex.printStackTrace(new PrintWriter(errors));
-            
-          serverGui.printExp(errors.toString());
+         
         }
         
         

@@ -6,6 +6,8 @@
 package model;
 
 import controller.ClientController;
+import java.awt.Color;
+import java.awt.Font;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
@@ -24,8 +26,8 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
         
     }
     @Override
-    public void receive(String msg, Integer friendId) throws RemoteException {
-        clientController.receive(msg,friendId);
+    public void receive(String msg, Integer friendId,Font font,Color color) throws RemoteException {
+        clientController.receive(msg,friendId,font,color);
     }
 
     @Override
@@ -78,7 +80,10 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface{
        
         clientController.updateFriends(friend);
     }
-    
+    @Override
+    public void receiveAnnoc(byte[] image) throws RemoteException {
+        clientController.receiveAnnoc(image);
+    } 
     
     
 }

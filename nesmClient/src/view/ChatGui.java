@@ -8,6 +8,7 @@ package view;
 import controller.ClientController;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -17,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -31,8 +33,14 @@ public class ChatGui extends javax.swing.JFrame {
     User user;
     ClientController clientController;
     
-    Font font = new Font(Font.SERIF,Font.PLAIN,18);
-    Color color= Color.getColor("BLUE");
+   // Font font = new Font(Font.SERIF,Font.PLAIN,18);
+    Font font;
+    Color color=Color.BLACK;
+     String fontName;
+     Integer size;
+     boolean bold;
+     int style=Font.PLAIN;
+    
     /**
      * Creates new form ChatGui
      */
@@ -48,7 +56,14 @@ public class ChatGui extends javax.swing.JFrame {
         ImageIcon logo=new ImageIcon(getClass().getResource("/view/logo.png"));
         this.setIconImage(logo.getImage());
       
+        // add fonts to combo box
+        fontNamejComboBox.addItem(Font.DIALOG);
+        fontNamejComboBox.addItem(Font.DIALOG_INPUT);
+        fontNamejComboBox.addItem(Font.MONOSPACED);
+        fontNamejComboBox.addItem(Font.SANS_SERIF);
+        fontNamejComboBox.addItem(Font.SERIF);
         this.setVisible(true);
+        setFontInput();
         
         /**
          * Adding window listener for action on close.
@@ -97,7 +112,7 @@ public class ChatGui extends javax.swing.JFrame {
      * this method is used for display a message on a screen .
      * @param msg 
      */
-    public void recieve(String msg)
+    public void recieve(String msg,Font f,Color c)
     {
         if(msg.equals("<nudge>")){
         
@@ -111,8 +126,8 @@ public class ChatGui extends javax.swing.JFrame {
         else{
        // String screen = clientOutputTextArea.getText();
        String screen ="  "+user.getUsername()+" : "+msg+ "\n";
-        clientOutputTextArea.setFont(font);
-        clientOutputTextArea.setForeground(color);
+        clientOutputTextArea.setFont(f);
+        clientOutputTextArea.setForeground(c);
         clientOutputTextArea.append(screen);
        
         //new PlayaudioFile("src\\sounds\\new_message.wav");
@@ -206,8 +221,13 @@ public class ChatGui extends javax.swing.JFrame {
         clientInputTextField = new javax.swing.JTextField();
         clientStateLabel = new javax.swing.JLabel();
         nudgeButton = new javax.swing.JButton();
+        fontSizejComboBox = new javax.swing.JComboBox<>();
+        fontNamejComboBox = new javax.swing.JComboBox<>();
+        boldToggleButton1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
         jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -264,6 +284,36 @@ public class ChatGui extends javax.swing.JFrame {
             }
         });
 
+        fontSizejComboBox.setEditable(true);
+        fontSizejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new Integer[] { 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30 ,32,34,36,38,40,42}));
+        fontSizejComboBox.setSelectedItem(18);
+        fontSizejComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fontSizejComboBoxActionPerformed(evt);
+            }
+        });
+
+        fontNamejComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fontNamejComboBoxActionPerformed(evt);
+            }
+        });
+
+        boldToggleButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        boldToggleButton1.setText("B");
+        boldToggleButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                boldToggleButton1ItemStateChanged(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -275,7 +325,7 @@ public class ChatGui extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 28, Short.MAX_VALUE)
                                 .addComponent(clientUserNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(295, 295, 295))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -288,6 +338,14 @@ public class ChatGui extends javax.swing.JFrame {
                                 .addComponent(fileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(nudgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fontSizejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fontNamejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boldToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jSeparator3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -315,10 +373,22 @@ public class ChatGui extends javax.swing.JFrame {
                             .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(photoButton)
-                                    .addComponent(fileButton)
-                                    .addComponent(nudgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(photoButton)
+                                            .addComponent(fileButton)
+                                            .addComponent(nudgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(fontNamejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(boldToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(fontSizejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(21, 21, 21))))
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(47, 47, 47))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -344,13 +414,14 @@ public class ChatGui extends javax.swing.JFrame {
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
         String msg;
         synchronized(this){
-        String screen = clientOutputTextArea.getText();
+       
         msg = clientInputTextField.getText();
-        clientOutputTextArea.setText(screen+"  Me : "+msg+ "\n");
-        clientInputTextField.setText(" ");
+        msg="Me : "+msg;    
+        recieve(msg, font, color);
+       clientInputTextField.setText(" ");
         }
       
-       clientController.sendMessage(user.getId() , msg);
+       clientController.sendMessage(user.getId() , msg,font,color);
         
     }//GEN-LAST:event_sendButtonActionPerformed
 
@@ -393,12 +464,45 @@ public class ChatGui extends javax.swing.JFrame {
 
     private void nudgeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nudgeButtonActionPerformed
        
-        clientController.sendMessage(user.getId() ,"<nudge>");
+        clientController.sendMessage(user.getId() ,"<nudge>",font,color);
     }//GEN-LAST:event_nudgeButtonActionPerformed
 
     private void fileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileButtonActionPerformed
         FileThread f = new FileThread();
     }//GEN-LAST:event_fileButtonActionPerformed
+
+    private void fontNamejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fontNamejComboBoxActionPerformed
+     
+            setFontInput();
+      
+    }//GEN-LAST:event_fontNamejComboBoxActionPerformed
+
+    private void boldToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boldToggleButton1ItemStateChanged
+        
+        if(evt.getStateChange()==ItemEvent.SELECTED){
+            style=Font.BOLD;
+            setFontInput();
+        
+        }
+        else{
+        
+            style=Font.PLAIN;
+            setFontInput();
+        }
+    }//GEN-LAST:event_boldToggleButton1ItemStateChanged
+
+    private void fontSizejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fontSizejComboBoxActionPerformed
+        
+       
+        setFontInput();
+    }//GEN-LAST:event_fontSizejComboBoxActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        color= JColorChooser.showDialog(null, "Choose a color",Color.BLACK);
+      jButton1.setBackground(color);
+      setFontInput();
+    }//GEN-LAST:event_jButton1ActionPerformed
 public void updateState(String State){
 
     clientStateLabel.setText(State);
@@ -407,11 +511,15 @@ public void updateState(String State){
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton boldToggleButton1;
     private javax.swing.JTextField clientInputTextField;
     private javax.swing.JTextArea clientOutputTextArea;
     private javax.swing.JLabel clientStateLabel;
     private javax.swing.JLabel clientUserNameLabel;
     private javax.swing.JButton fileButton;
+    private javax.swing.JComboBox<String> fontNamejComboBox;
+    private javax.swing.JComboBox<Integer> fontSizejComboBox;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -461,7 +569,15 @@ class FileThread extends Thread
    
 }
 
+private void setFontInput(){
 
+     fontName= (String)fontNamejComboBox.getSelectedItem();
+     size=(Integer)fontSizejComboBox.getSelectedItem();
+      font = new Font(fontName,style,size);
+      clientInputTextField.setFont(font);
+      clientInputTextField.setForeground(color);
+
+}
 
 
 

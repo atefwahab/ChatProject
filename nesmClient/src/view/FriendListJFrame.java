@@ -6,6 +6,7 @@
 package view;
 
 import controller.ClientController;
+import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
@@ -151,7 +152,6 @@ public class FriendListJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -175,7 +175,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
         requestjList = new javax.swing.JList<>();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        adLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         availableMenu = new javax.swing.JMenuItem();
@@ -186,11 +186,12 @@ public class FriendListJFrame extends javax.swing.JFrame {
         addfriendmenu = new javax.swing.JMenuItem();
         logOutMenuItem = new javax.swing.JMenuItem();
         exitMenu = new javax.swing.JMenuItem();
-
-        jMenuItem1.setText("jMenuItem1");
+        help = new javax.swing.JMenu();
+        aboutUs = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(52, 152, 219));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -386,17 +387,17 @@ public class FriendListJFrame extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(52, 152, 219));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/ad.png"))); // NOI18N
+        adLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/ad.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(adLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(adLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -485,6 +486,19 @@ public class FriendListJFrame extends javax.swing.JFrame {
         Options.add(exitMenu);
 
         jMenuBar1.add(Options);
+
+        help.setText("Help");
+
+        aboutUs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_MASK));
+        aboutUs.setText("About Us");
+        aboutUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutUsActionPerformed(evt);
+            }
+        });
+        help.add(aboutUs);
+
+        jMenuBar1.add(help);
 
         setJMenuBar(jMenuBar1);
 
@@ -607,7 +621,7 @@ public class FriendListJFrame extends javax.swing.JFrame {
     private void logOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutMenuItemActionPerformed
          
         clientController.setMeOffline();
-        
+        this.dispose();
         
     }//GEN-LAST:event_logOutMenuItemActionPerformed
 
@@ -688,10 +702,23 @@ public class FriendListJFrame extends javax.swing.JFrame {
         statejComboBox.setSelectedIndex(2);
     }//GEN-LAST:event_awayMenuActionPerformed
 
-    
+    private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
+       new aboutUs();
+    }//GEN-LAST:event_aboutUsActionPerformed
+
+   public ImageIcon imageAd;
+   static int index=0;
+public void setAd()
+{
+    index++;
+    //imageAd=new ImageIcon("ad"+index+".png").getImage().getScaledInstance(300, 100, Image.SCALE_SMOOTH);
+  adLabel.setIcon(new ImageIcon( new ImageIcon("ad"+index+".png").getImage().getScaledInstance(510, 200, Image.SCALE_SMOOTH)));  
+} 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Options;
+    private javax.swing.JMenuItem aboutUs;
+    private javax.swing.JLabel adLabel;
     private javax.swing.JButton addfriendButton;
     private javax.swing.JMenuItem addfriendmenu;
     private javax.swing.JMenuItem availableMenu;
@@ -702,14 +729,13 @@ public class FriendListJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenu;
     private javax.swing.JTabbedPane friendRequestTabbedPane;
     private javax.swing.JList<Object> friendjList;
+    private javax.swing.JMenu help;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

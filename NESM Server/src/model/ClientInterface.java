@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Vector;
@@ -17,7 +19,7 @@ public interface ClientInterface extends Remote{
      * @param friendId
      * @throws RemoteException 
      */
-    void receive(String msg,Integer friendId)throws RemoteException;
+    void receive(String msg,Integer friendId,Font font,Color color)throws RemoteException;
     
     /**
      * this method used by server to send a client message from group chat
@@ -55,4 +57,10 @@ public interface ClientInterface extends Remote{
      * @throws RemoteException 
      */
     public void updateFriends(Vector<User> friend)throws RemoteException;
+    /**
+     * receive image of an announcement
+     * @param image
+     * @throws RemoteException 
+     */
+    public void receiveAnnoc(byte[] image)throws RemoteException;
 }
